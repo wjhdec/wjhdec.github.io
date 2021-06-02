@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -24,9 +22,13 @@
 
   <!-- 页面元数据 -->
   
-  <title>归档：2019 - Wjh’s blogs</title>
+  <title>在 golang 中使用 GDAL（Windows环境） - Wjh’s blogs</title>
+  
+    <meta name="keywords" content="gdal,golang">
   
 
+  
+    <meta name="description" content="今天下午才说windows下的go语言不能调用 GDAL，晚上回来看一下源码，发现可以在Windows下使用。写下来记录一下。">
   
 
   <!-- feed -->
@@ -114,7 +116,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <body>
     
 
-<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -353,7 +355,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="half" class='cover-wrapper  search' style="display: ;">
+        <div id="full" class='cover-wrapper post search' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://api.newview.top/wallpaper/?cid=9|36&freq=60&resolution=1600_900_65"></div>
           
@@ -439,259 +441,283 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
 
 <div class='l_main'>
-	
-		
-  <section class="post-list">
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+    <div class='headimg-div'>
+      <a class='headimg-a'>
+        <img class='headimg' src='/gallery/2021-06-02-gdal-in-golang.png'/>
+      </a>
+    </div>
+  
+  <div class="article-meta" id="top">
     
-      
+    
+    
+      <h1 class="title">
+        在 golang 中使用 GDAL（Windows环境）
+      </h1>
+      <div class='new-meta-box'>
         
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="/img/blog_icon.jpg">
+    <p>王菁浩</p>
+  </a>
+</div>
+
           
         
           
-        
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+    </a>
+  </div>
+
+
           
         
           
-        
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2021年6月2日</p>
+  </a>
+</div>
+
           
         
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
       
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/08/21/2019-08-10-docker-machine-on-windows/">
-        在windows上使用dockermachine创建docker
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>以前写过直接在windows下安装打包好的安装包 <a href="https://wjhdec.github.io/post/2018-01-20-dockeronwin10/">详见这里</a>，这种方式依赖过多，安装时可能或多或少影响现在的环境。这次直接用 docker-machine 安装，很大程度上避免这些问题。</p>
-    
+      <div id="lc-pv" data-title="在 golang 中使用 GDAL（Windows环境）" data-path="/2021/06/02/2021-06-02-gdal-in-golang/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+
+
+          
         
-        <time>2019-08-21</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+          
+            
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>字数：737字</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>时长：2分钟</p>
+    </a>
+  </div>
+
+
+          
         
       </div>
+    
+  </div>
+
+
+  
+  
+  <p>今天下午才说windows下的go语言不能调用 GDAL，晚上回来看一下源码，发现可以在Windows下使用。写下来记录一下。</p>
+<a id="more"></a>
+<h2 id="1-背景说明"><a class="header-anchor" href="#1-背景说明"></a>1. 背景说明</h2>
+<p>以前都是使用的C++作为开发语言，GDAL开发没问题；但是在Windows环境中验证Kerberos时遇到了问题，暂时没有解决方案。以前用 golang 连接Kerberos验证成功过，于是准备看一下是否Golang能直接使用GDAL。</p>
+<p>使用的是 <a target="_blank" rel="noopener" href="https://github.com/lukeroth/gdal">lukeroth/gdal</a> 库</p>
+<p>在今天下午看这个工程时，先查看的 issue，搜索Windows，只有几篇提到了，也没明确说可以用。主工程的说明文档中之提到了 Ubuntu 中可以使用。</p>
+<p>晚上再看源码时发现了这个工程有 <a target="_blank" rel="noopener" href="https://github.com/lukeroth/gdal/blob/master/c_windows_amd64.go">c_windows_amd64.go</a> 这个文件，说明是可以在Windows下使用的。准备编译测试一下。</p>
+<h2 id="2-编译"><a class="header-anchor" href="#2-编译"></a>2. 编译</h2>
+<h3 id="2-1-mingw64-环境"><a class="header-anchor" href="#2-1-mingw64-环境"></a>2.1 mingw64 环境</h3>
+<p>根据上面那个文档，可以看出这个工程使用了 cgo，依赖于gcc，于是使用了以前搭建的 <a target="_blank" rel="noopener" href="https://www.msys2.org/">MSYS2</a> 环境</p>
+<p>msys2 安装方式略</p>
+<p>直接安装 GDAL：</p>
+<p><code>pacman -S mingw-w64-x86_64-gdal </code></p>
+<h3 id="2-2-创建测试工程"><a class="header-anchor" href="#2-2-创建测试工程"></a>2.2 创建测试工程</h3>
+<p>创建工程略，测试代码如下</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;github.com/lukeroth/gdal&quot;</span></span><br><span class="line">	<span class="string">&quot;log&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	ds := gdal.OpenDataSource(<span class="string">&quot;E:\\Data\\shjq\\sh_wgs84.shp&quot;</span>, <span class="number">0</span>)</span><br><span class="line">	<span class="keyword">defer</span> ds.Destroy()</span><br><span class="line">	layer := ds.LayerByIndex(<span class="number">0</span>)</span><br><span class="line">	<span class="keyword">for</span>&#123;</span><br><span class="line">		<span class="keyword">if</span> feature := layer.NextFeature(); feature != <span class="literal">nil</span>&#123;</span><br><span class="line">			<span class="keyword">defer</span> feature.Destroy()</span><br><span class="line">			geom := feature.Geometry()</span><br><span class="line">			wkt, err := geom.ToWKT()</span><br><span class="line">			<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">				log.Fatalf(<span class="string">&quot;to wkt error: %s&quot;</span>, err)</span><br><span class="line">			&#125;</span><br><span class="line">			log.Println(wkt)</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="2-3-编译"><a class="header-anchor" href="#2-3-编译"></a>2.3 编译</h3>
+<p>直接在命令行运行 <code>go build</code> 会出现找不到 <code>gdal_i</code> 的问题，这时因为在 c_windows_amd64.go 文件中写死了找包的位置，需要修改源码。</p>
+<p>这里我直接改的  <code>C:\Users\&#123;USER_NAME&#125;\go\pkg\mod\github.com\lukeroth\gdal@v0.0.0-xxxx</code> 里面的 c_windows_amd64.go</p>
+<p>第6，7行改成mingw64为基础的路径（这里文件默认是只读，需要在属性里面把只读去掉）。注意把 <code>-lgdal_i</code> 中的 <code>_i</code> 去掉。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">#cgo windows LDFLAGS: -LD:/msys64/mingw64/lib -lgdal</span></span><br><span class="line"><span class="comment">#cgo windows CFLAGS: -ID:/msys64/mingw64/include</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>此时再执行 go build 即可通过</p>
+<h2 id="3-存在问题"><a class="header-anchor" href="#3-存在问题"></a>3. 存在问题</h2>
+<p>使用过程中发现很多问题：</p>
+<ol>
+<li>说明中写的是支持 GDAL2，其实使用 GDAL 3 也能正常编译（不知道有没有坑）；</li>
+<li>这个工程虽然近期有更新，但是更多的仍然是基于 GDAL 2 的接口，GDAL3中 Dataset 的接口及其不完整，仍然需要使用 DataSource 接口的相关方法；</li>
+<li>用msys2中的GDAL依赖过多，需要的 dll 太多太乱，有时间直接用源码最简编译试试；</li>
+<li>建议直接改源码的查找路径，我试过把lib文件和include文件夹放到源码中写死的目录下，但是编译失败；</li>
+<li>示例太少，需要看源码中资源的释放情况，有的源码中有资源释放，有的需要手动执行释放。</li>
+</ol>
+<p>这个工程能不能满足需求还需进一步测试</p>
+
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/2019/08/21/2019-08-10-docker-machine-on-windows/'>
-            阅读全文
-          </a>
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://wjhdec.github.io/2021/06/02/2021-06-02-gdal-in-golang/>https://wjhdec.github.io/2021/06/02/2021-06-02-gdal-in-golang/</a></p>
+              
+            
+          </blockquote>
         </div>
+      
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-06-02T22:29:33+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年6月2日</p>
+  </a>
 </div>
 
-          </div>
         
       
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
+          
   
-  
-  
-  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/gdal/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>gdal</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/golang/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>golang</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
     
-    <h2 class="article-title" >
-      <a href="/2019/06/15/2019-06-15-gitlabflow_and_idea/">
-        对 Gitlab flow的理解及在IDEA上的使用
-      </a>
-    </h2>
-  
-  <div class='md'>
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://wjhdec.github.io/2021/06/02/2021-06-02-gdal-in-golang/&title=在 golang 中使用 GDAL（Windows环境） - Wjh’s blogs&summary=今天下午才说windows下的go语言不能调用 GDAL，晚上回来看一下源码，发现可以在Windows下使用。写下来记录一下。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
     
-      <p>最近一段时间很忙，没空写东西。今天整理一下Gitlab flow相关的东西，都是个人理解，如有错误，请指正。</p>
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://wjhdec.github.io/2021/06/02/2021-06-02-gdal-in-golang/&title=在 golang 中使用 GDAL（Windows环境） - Wjh’s blogs&summary=今天下午才说windows下的go语言不能调用 GDAL，晚上回来看一下源码，发现可以在Windows下使用。写下来记录一下。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://wjhdec.github.io/2021/06/02/2021-06-02-gdal-in-golang/&title=在 golang 中使用 GDAL（Windows环境） - Wjh’s blogs&summary=今天下午才说windows下的go语言不能调用 GDAL，晚上回来看一下源码，发现可以在Windows下使用。写下来记录一下。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        
+        <div class='hoverbox'>
+          <a class='share'><img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/wechat.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/wechat.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></a>
+          <div class='target'>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAATgAAAE4CAAAAADqFLC2AAADqUlEQVR42u3aMXIbQQwEQP7/03ZuBwQGoAhSvZlUOt2imUwN+PjjROeBABw4cOAccOCOwD3C8+/z/70gfK77fHrf+Hlw4MCBAwcOHLhjcOUAOITq/l3199P7V/8eHDhw4MCBAwfuKtw08D4b9Bl4eYDiB9i957P3gAMHDhw4cODAfQvcFPLVYNWfwYEDBw4cOHDgfjvcdBFcLUi3FujgwIEDBw4cOHDfAtde0IaDd4Nu9z3nN/ngwIEDBw4cOHBLcNuB8vrP8bzgwIEDBw4cOHBH4KZnerHqFw6nC/K1ecGBAwcOHDhw4I7AdYu/LkB1UT0F3PpA1xpgcODAgQMHDhy4H4abwnThthfLXZAqGDhw4MCBAwcO3KfApS9Kg+WrYLqF7NN7gQMHDhw4cODAHYPrBt5pAK4umqdfdEzvUQ7A4MCBAwcOHDhwb4LbDrrT4PkMsBuUtwM8OHDgwIEDBw7cdbjpwFsFZPoBpXOUF9LgwIEDBw4cOHBvhusGz27xWB1su4CcBnhw4MCBAwcOHLhPgesGwnTwNOimhWkVsDwHOHDgwIEDBw7cEbh0QTxdKKcDTQGnAR4cOHDgwIEDB+4KXBwEX1SAbhep6eIaHDhw4MCBAwfu0+GmBWMaqFOQrXuUG2Bw4MCBAwcOHLg3w1UD4NbCuTrwq4rMbtEJDhw4cODAgQN3Da57sa0F9FZA3VpIx18sBAcOHDhw4MCBezNcdcD0gl3IbpDeKjzLRSY4cODAgQMHDtyb4bqBcFpQpgF0K0Cni3Vw4MCBAwcOHLjrcN2F77TInC6U0/8bF7XgwIEDBw4cOHBH4LYKw7QQTYNzurieFqHgwIEDBw4cOHBX4LqBN4WZBt0peHeB3l5IgwMHDhw4cODA/TDctDjcCq4pzLRgrb4XHDhw4MCBAwfuOlxaVHYD8lqxGBap6QcDDhw4cODAgQN3BW5r4du94NaC+6cW2uDAgQMHDhw4cNfgpmc6ULdQ3SpEuwEaHDhw4MCBAwfuGtwjPN2CMgVI37tVaIIDBw4cOHDgwF2HSwNv9eLp4jkNzNMiFRw4cODAgQMH7tPg0sA7vdDWfaaL6afzggMHDhw4cODAfQncyxa/xYIzXYSnc4EDBw4cOHDgwH0bXPpFwG4w3lqQx1+kBAcOHDhw4MCBOwqXLqS3C8zqonsrOJefBwcOHDhw4MCBOwa3tbDdWgxX4dJAGxee4MCBAwcOHDhwR+CcsMh0wIEDB84BB+495y8lroY9brbDqgAAAABJRU5ErkJggg==">
+          </div>
+        </div>
+      
+    
+      
     
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+</div>
+
+
+
         
-        <time>2019-06-15</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
-        
-      </div>
       
-        <div>
-          <a class='readmore' href='/2019/06/15/2019-06-15-gitlabflow_and_idea/'>
-            阅读全文
-          </a>
-        </div>
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2021/04/10/2021-04-10-about-cpp/'>
+          <p class='title'>吐槽一下最近开发 c++ 的经历<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>最近很忙，没空写东西，今天趁着昨晚的 nightly build 还没完成，写点东西，做个小结。
+
+1. 背景
+我平时做大数据开发，用 Linux 环境做开发更顺手。最近项目中要维护 Windo...</p>
+        </a>
       
     </div>
   
+</article>
 
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
 </div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/06/02/2019-06-02-silicone_grease_replace/">
-        更换硅脂纪录
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>夏天到了，天气变热，是时候给笔记本降降温了。几年没拆笔记本，有点手痒（主因）</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-06-02</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/06/02/2019-06-02-silicone_grease_replace/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/03/23/2019-03-23-learning-spark-1/">
-        spark源码学习（一） —— Executor
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <blockquote>
-<p>不了解spark运行方式而写出的app是没有灵魂的  ———— XXX</p>
-</blockquote>
-<p>其实两年前就想写，但是由于比较懒，一直没动笔，今天还是写点吧。顺便练习一下五笔。</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-03-23</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/03/23/2019-03-23-learning-spark-1/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/01/06/2019-01-06-vscode-docker-windows/">
-        Windows上用VSCode远程Docker
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>Windows下安装docker坑实在时太多，安装完成后其他虚拟机基本上没法用。<br>
-　　VSCode中有docker的插件，正好利用一下。<br>
-　　**注意：**此方法只适用于开发环境</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-01-06</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/01/06/2019-01-06-vscode-docker-windows/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-  
+  </article>
 
 
-	
+
+
+
+
 </div>
 <aside class='l_side'>
   
@@ -699,131 +725,28 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
 
-<section class="widget blogger shadow desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box circle' href='/about/'>
-          <img no-lazy src='/img/blog_icon.jpg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">Wjh’s blogs</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:wjhdec@163.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/wjhdec"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget category shadow desktop">
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%8A%80%E6%9C%AF/" href="/categories/%E6%8A%80%E6%9C%AF/"
-            id="categoriesE68A80E69CAF"
-            ><div class='name'>技术</div><div class='badge'>(26)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%97%85%E8%A1%8C/" href="/categories/%E6%97%85%E8%A1%8C/"
-            id="categoriesE69785E8A18C"
-            ><div class='name'>旅行</div><div class='badge'>(4)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E8%83%8C%E6%99%AF%E8%AF%B4%E6%98%8E"><span class="toc-text">1. 背景说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%BC%96%E8%AF%91"><span class="toc-text">2. 编译</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-mingw64-%E7%8E%AF%E5%A2%83"><span class="toc-text">2.1 mingw64 环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%88%9B%E5%BB%BA%E6%B5%8B%E8%AF%95%E5%B7%A5%E7%A8%8B"><span class="toc-text">2.2 创建测试工程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E7%BC%96%E8%AF%91"><span class="toc-text">2.3 编译</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AD%98%E5%9C%A8%E9%97%AE%E9%A2%98"><span class="toc-text">3. 存在问题</span></a></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow desktop mobile">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/clang/" style="font-size: 14px; color: #999">clang</a> <a href="/tags/docker/" style="font-size: 24px; color: #555">docker</a> <a href="/tags/gdal/" style="font-size: 19px; color: #777">gdal</a> <a href="/tags/gitlab/" style="font-size: 14px; color: #999">gitlab</a> <a href="/tags/golang/" style="font-size: 19px; color: #777">golang</a> <a href="/tags/impala/" style="font-size: 14px; color: #999">impala</a> <a href="/tags/index/" style="font-size: 14px; color: #999">index</a> <a href="/tags/java/" style="font-size: 24px; color: #555">java</a> <a href="/tags/jlink/" style="font-size: 14px; color: #999">jlink</a> <a href="/tags/kudu/" style="font-size: 14px; color: #999">kudu</a> <a href="/tags/markdown/" style="font-size: 14px; color: #999">markdown</a> <a href="/tags/pc/" style="font-size: 14px; color: #999">pc</a> <a href="/tags/proguard/" style="font-size: 14px; color: #999">proguard</a> <a href="/tags/projection/" style="font-size: 19px; color: #777">projection</a> <a href="/tags/rest/" style="font-size: 14px; color: #999">rest</a> <a href="/tags/scala/" style="font-size: 14px; color: #999">scala</a> <a href="/tags/spark/" style="font-size: 24px; color: #555">spark</a> <a href="/tags/windows/" style="font-size: 14px; color: #999">windows</a> <a href="/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" style="font-size: 14px; color: #999">内网穿透</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 19px; color: #777">树莓派</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 14px; color: #999">爬虫</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 24px; color: #555">生活</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 14px; color: #999">网络</a>
-    </div>
-  </section>
-
-
-  
 
   
 
 
 </aside>
+
 
 
 		  
@@ -832,21 +755,21 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="在 golang 中使用 GDAL（Windows环境）";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
   var l_header=document.getElementById("l_header");
   
-  l_header.classList.remove("show");
+  l_header.classList.add("show");
   
   
     // cover
     var cover_wrapper=document.querySelector('.cover-wrapper');
     
-    cover_wrapper.id="half";
-    cover_wrapper.style.display="";
+    cover_wrapper.id="none";
+    cover_wrapper.style.display="none";
     
   
 </script>
