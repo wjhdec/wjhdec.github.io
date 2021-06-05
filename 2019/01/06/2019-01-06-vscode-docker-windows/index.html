@@ -534,7 +534,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <p>Windows下安装docker坑实在时太多，安装完成后其他虚拟机基本上没法用。<br>
 　　VSCode中有docker的插件，正好利用一下。<br>
 　　**注意：**此方法只适用于开发环境</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="1-环境需求"><a class="header-anchor" href="#1-环境需求"></a>1. 环境需求</h2>
 <ul>
 <li>Windows环境</li>
@@ -562,19 +562,19 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>在环境变量中添加 <strong>DOCKER_HOST</strong> ，值为： <strong>tcp://{IP}:2375</strong> IP按需写<br>
 把刚才的docker.exe放到环境变量的path中</p>
 <p>在cmd中执行 <strong>docker info</strong> 命令，如果能返回server的信息，则证明配置成功。</p>
-<img src="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-37-29.png" class="lazyload" data-srcset="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-37-29.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" class=" lazyload" title="docker的server信息">
+<img src="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-37-29.png" class="lazyload" data-srcset="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-37-29.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" class=" lazyload" alt="docker的server信息">
 <h3 id="3-2-配置VSCode"><a class="header-anchor" href="#3-2-配置VSCode"></a>3.2. 配置VSCode</h3>
 <p>搜索安装docker插件</p>
-<img src="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-39-24.png" class="lazyload" data-srcset="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-39-24.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" class=" lazyload" title="安装插件">
+<img src="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-39-24.png" class="lazyload" data-srcset="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-39-24.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" class=" lazyload" alt="安装插件">
 <h3 id="3-3-测试执行-dockerfile"><a class="header-anchor" href="#3-3-测试执行-dockerfile"></a>3.3. 测试执行 dockerfile</h3>
 <p>在VSCode中添加文件夹（为了好整理）<br>
 按 Shift + Ctrl + P 选 add docker file</p>
-<img src="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-45-11.png" class="lazyload" data-srcset="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-45-11.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" class=" lazyload" title="添加 docker file">
+<img src="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-45-11.png" class="lazyload" data-srcset="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-45-11.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" class=" lazyload" alt="添加 docker file">
 <p>由于是测试，都用默认参数即可</p>
-<img src="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-46-50.png" class="lazyload" data-srcset="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-46-50.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" class=" lazyload" title="Docker File 的 Demo">
+<img src="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-46-50.png" class="lazyload" data-srcset="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-46-50.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" class=" lazyload" alt="Docker File 的 Demo">
 <p>点右键选择 buildimage</p>
-<img src="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-54-25.png" class="lazyload" data-srcset="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-54-25.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" class=" lazyload" title="Docker 执行中">
-<img src="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-57-45.png" class="lazyload" data-srcset="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-57-45.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" class=" lazyload" title="生成成功">
+<img src="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-54-25.png" class="lazyload" data-srcset="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-54-25.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" class=" lazyload" alt="Docker 执行中">
+<img src="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-57-45.png" class="lazyload" data-srcset="/2019/01/06/2019-01-06-vscode-docker-windows/2019-01-06-10-57-45.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" class=" lazyload" alt="生成成功">
 <p>docker就可以直接在VSCode中进行管理了。<br>
 <strong>注：</strong> VSCode中的Docker插件也有类似 DOCKER_HOST 的配置，但是那个配置不能写 <em>tcp://</em>，只写ip和端口即可。</p>
 

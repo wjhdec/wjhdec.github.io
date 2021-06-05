@@ -530,7 +530,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
   
   <p>flatMap 是个很神奇的东西，一般是学习 scala 的第一个坎儿，其实很简单，下面分别从 Scala，Spark（Dataset），Java8（lambda）说明flatMap的使用</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="1-在-Scala-中的使用"><a class="header-anchor" href="#1-在-Scala-中的使用"></a>1. 在 Scala 中的使用</h2>
 <p>flatMap 在scala的参数需要的返回是 GenTraversableOnce，下面是实现：</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">flatMap</span></span>[<span class="type">B</span>, <span class="type">That</span>](f: <span class="type">A</span> =&gt; <span class="type">GenTraversableOnce</span>[<span class="type">B</span>])(<span class="keyword">implicit</span> bf: <span class="type">CanBuildFrom</span>[<span class="type">Repr</span>, <span class="type">B</span>, <span class="type">That</span>]): <span class="type">That</span> = &#123;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">builder</span> </span>= bf(repr) <span class="comment">// extracted to keep method size under 35 bytes, so that it can be JIT-inlined</span></span><br><span class="line">    <span class="keyword">val</span> b = builder</span><br><span class="line">    <span class="keyword">for</span> (x &lt;- <span class="keyword">this</span>) b ++= f(x).seq</span><br><span class="line">    b.result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

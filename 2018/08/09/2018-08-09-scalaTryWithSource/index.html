@@ -532,7 +532,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
   <p>scala中没有原生的类似 java 7+ 中的 try(){}catch{} 自动关闭资源的方法。想用的话只能自己写了。<br>
 　　PS: 以前没注意过，shapeless功能真很强大。</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>资料不好找啊，网上大部分能搜索到的方法是 参考1 中的方法，比较直接，但是有一个问题，不能实现同时对多个资源close。后来努力寻找，翻到了 参考2 ，不过也存在一些问题，例如在资源关闭时出错的话会直接忽略。<br>
 　　于是整合了一下，有了以下的逻辑：</p>
 <p><strong>注意:</strong> 单个和多个必须分开处理</p>

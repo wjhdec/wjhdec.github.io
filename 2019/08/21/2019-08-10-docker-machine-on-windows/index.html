@@ -530,7 +530,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
   
   <p>以前写过直接在windows下安装打包好的安装包 <a href="https://wjhdec.github.io/post/2018-01-20-dockeronwin10/">详见这里</a>，这种方式依赖过多，安装时可能或多或少影响现在的环境。这次直接用 docker-machine 安装，很大程度上避免这些问题。</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="环境准备"><a class="header-anchor" href="#环境准备"></a>环境准备</h2>
 <ul>
 <li>Windows 环境</li>
@@ -562,14 +562,14 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>以下环境都在 git bash 下运行</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine create --driver virtualbox default</span><br></pre></td></tr></table></figure>
 <p>过程中需进行几次权限认证</p>
-<img src="/2019/08/21/2019-08-10-docker-machine-on-windows/1566394961063.png" class="lazyload" data-srcset="/2019/08/21/2019-08-10-docker-machine-on-windows/1566394961063.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" class=" lazyload" title="创建环境">
+<img src="/2019/08/21/2019-08-10-docker-machine-on-windows/1566394961063.png" class="lazyload" data-srcset="/2019/08/21/2019-08-10-docker-machine-on-windows/1566394961063.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" class=" lazyload" alt="创建环境">
 <p>查询已有的 docker 情况（版本号和创建时相关）</p>
-<img src="/2019/08/21/2019-08-10-docker-machine-on-windows/1566425870034.png" class="lazyload" data-srcset="/2019/08/21/2019-08-10-docker-machine-on-windows/1566425870034.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" class=" lazyload" title="docker查看">
+<img src="/2019/08/21/2019-08-10-docker-machine-on-windows/1566425870034.png" class="lazyload" data-srcset="/2019/08/21/2019-08-10-docker-machine-on-windows/1566425870034.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" class=" lazyload" alt="docker查看">
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine env [如果不是default，这里需写上名称]</span><br></pre></td></tr></table></figure>
 <p>显示相关信息</p>
-<img src="/2019/08/21/2019-08-10-docker-machine-on-windows/image-20200302223248443.png" class="lazyload" data-srcset="/2019/08/21/2019-08-10-docker-machine-on-windows/image-20200302223248443.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" class=" lazyload" title="输出信息">
+<img src="/2019/08/21/2019-08-10-docker-machine-on-windows/image-20200302223248443.png" class="lazyload" data-srcset="/2019/08/21/2019-08-10-docker-machine-on-windows/image-20200302223248443.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" class=" lazyload" alt="输出信息">
 <p>此时如果在 git bash下执行提示中的语句，则在本进程中docker可用，但是重新打开的话需要重写。比较好的方式是直接写到环境变量中。</p>
-<img src="/2019/08/21/2019-08-10-docker-machine-on-windows/image-20200302223540617.png" class="lazyload" data-srcset="/2019/08/21/2019-08-10-docker-machine-on-windows/image-20200302223540617.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" class=" lazyload" title="环境变量">
+<img src="/2019/08/21/2019-08-10-docker-machine-on-windows/image-20200302223540617.png" class="lazyload" data-srcset="/2019/08/21/2019-08-10-docker-machine-on-windows/image-20200302223540617.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" class=" lazyload" alt="环境变量">
 <p>这样在 git bash 或  powershell 中都可使用</p>
 <p>测试 docker images 即可查看现有 images</p>
 
