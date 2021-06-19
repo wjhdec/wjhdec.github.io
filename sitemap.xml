@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://wjhdec.github.io/2019/08/21/2019-08-10-docker-machine-on-windows/</loc>
+    
+    <lastmod>2021-06-19</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://wjhdec.github.io/2018/10/14/2018-10-14-tourism-xian/</loc>
     
     <lastmod>2021-06-05</lastmod>
@@ -170,13 +177,6 @@
   </url>
   
   <url>
-    <loc>https://wjhdec.github.io/2019/08/21/2019-08-10-docker-machine-on-windows/</loc>
-    
-    <lastmod>2020-12-05</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://wjhdec.github.io/2020/11/22/2020-11-22-java-update-to-11/</loc>
     
     <lastmod>2020-11-22</lastmod>
@@ -240,7 +240,7 @@
   </url>
   
   <url>
-    <loc>https://wjhdec.github.io/about.html</loc>
+    <loc>https://wjhdec.github.io/about/index.html</loc>
     
     <lastmod>2020-11-07</lastmod>
     
@@ -249,7 +249,7 @@
 
   <url>
     <loc>https://wjhdec.github.io/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -257,161 +257,161 @@
   
   <url>
     <loc>https://wjhdec.github.io/tags/java/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://wjhdec.github.io/tags/jlink/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://wjhdec.github.io/tags/clang/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://wjhdec.github.io/tags/markdown/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://wjhdec.github.io/tags/spark/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://wjhdec.github.io/tags/%E7%88%AC%E8%99%AB/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://wjhdec.github.io/tags/docker/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://wjhdec.github.io/tags/%E7%94%9F%E6%B4%BB/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://wjhdec.github.io/tags/scala/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://wjhdec.github.io/tags/pc/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://wjhdec.github.io/tags/gitlab/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://wjhdec.github.io/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://wjhdec.github.io/tags/%E7%BD%91%E7%BB%9C/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://wjhdec.github.io/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://wjhdec.github.io/tags/kudu/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://wjhdec.github.io/tags/impala/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://wjhdec.github.io/tags/proguard/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://wjhdec.github.io/tags/gdal/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://wjhdec.github.io/tags/windows/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://wjhdec.github.io/tags/rest/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://wjhdec.github.io/tags/projection/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://wjhdec.github.io/tags/golang/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://wjhdec.github.io/tags/index/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -420,14 +420,14 @@
   
   <url>
     <loc>https://wjhdec.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://wjhdec.github.io/categories/%E6%97%85%E8%A1%8C/</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
