@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>spark源码学习（一） —— Executor - WJH&#39;s blog</title><meta name="Description" content="Wjh&#39;s blog"><meta property="og:title" content="spark源码学习（一） —— Executor" />
+<meta property="og:description" content="
+不了解spark运行方式而写出的app是没有灵魂的  ———— XXX
+
+其实两年前就想写，但是由于比较懒，一直没动笔，今天还是写点吧。顺便练习一下五笔。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wjhdec.github.io/2019/03/2019-03-23-learning-spark-1/" /><meta property="og:image" content="https://wjhdec.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-03-23T18:12:54+08:00" />
+<meta property="article:modified_time" content="2019-03-23T18:12:54+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://wjhdec.github.io/logo.png"/>
+
+<meta name="twitter:title" content="spark源码学习（一） —— Executor"/>
+<meta name="twitter:description" content="
+不了解spark运行方式而写出的app是没有灵魂的  ———— XXX
+
+其实两年前就想写，但是由于比较懒，一直没动笔，今天还是写点吧。顺便练习一下五笔。"/>
+<meta name="application-name" content="Wjh&#39;s blog">
+<meta name="apple-mobile-web-app-title" content="Wjh&#39;s blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://wjhdec.github.io/2019/03/2019-03-23-learning-spark-1/" /><link rel="prev" href="https://wjhdec.github.io/2019/01/2019-01-06-vscode-docker-windows/" /><link rel="next" href="https://wjhdec.github.io/2019/06/2019-06-02-silicone_grease_replace/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "spark源码学习（一） —— Executor",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/wjhdec.github.io\/2019\/03\/2019-03-23-learning-spark-1\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/wjhdec.github.io\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "spark","wordcount":  1162 ,
+        "url": "https:\/\/wjhdec.github.io\/2019\/03\/2019-03-23-learning-spark-1\/","datePublished": "2019-03-23T18:12:54+08:00","dateModified": "2019-03-23T18:12:54+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/wjhdec.github.io\/images\/avatar.png",
+                    "width":  528 ,
+                    "height":  560 
+                }},"author": {
+                "@type": "Person",
+                "name": "王菁浩"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="WJH&#39;s blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>WJH&#39;s blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2019/03/2019-03-23-learning-spark-1/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="WJH&#39;s blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>WJH&#39;s blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/2019/03/2019-03-23-learning-spark-1/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">spark源码学习（一） —— Executor</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>王菁浩</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF/"><i class="far fa-folder fa-fw"></i>技术</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-03-23">2019-03-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1162 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id="/2019/03/2019-03-23-learning-spark-1/" class="leancloud_visitors" data-flag-title="spark源码学习（一） —— Executor">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-环境信息">1. 环境信息</a></li>
+    <li><a href="#2-executor-简介">2. Executor 简介</a></li>
+    <li><a href="#3-executor-结构">3. Executor 结构</a>
+      <ul>
+        <li><a href="#31-object">3.1. object</a></li>
+        <li><a href="#32-class">3.2. class</a>
+          <ul>
+            <li><a href="#321-构造函数">3.2.1. 构造函数</a></li>
+            <li><a href="#322-executor-内部类">3.2.2. Executor 内部类</a>
+              <ul>
+                <li><a href="#3221-taskrunner">3.2.2.1. TaskRunner</a></li>
+                <li><a href="#3222-taskreaper">3.2.2.2. TaskReaper</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#33-主要内容">3.3. 主要内容</a>
+          <ul>
+            <li><a href="#331-初始化执行">3.3.1. 初始化执行</a></li>
+            <li><a href="#332-执行task入口">3.3.2. 执行Task入口</a></li>
+          </ul>
+        </li>
+        <li><a href="#34-taskrunner类">3.4. TaskRunner类</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-题外话">4. 题外话</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>不了解spark运行方式而写出的app是没有灵魂的  ———— XXX</p>
+</blockquote>
+<p>其实两年前就想写，但是由于比较懒，一直没动笔，今天还是写点吧。顺便练习一下五笔。</p>
+<h2 id="1-环境信息">1. 环境信息</h2>
+<p>spark版本：2.4
+<a href="https://github.com/apache/spark/blob/v2.4.0" target="_blank" rel="noopener noreffer">源码位置</a></p>
+<h2 id="2-executor-简介">2. Executor 简介</h2>
+<p>executor为spark的执行单元，主要由driver进行调度。此类主要在包 <em>org.apache.spark.executor</em> 中。</p>
+<p><a href="https://github.com/apache/spark/blob/v2.4.0/core/src/main/scala/org/apache/spark/executor/Executor.scala" target="_blank" rel="noopener noreffer">Executor类源码位置</a></p>
+<p>下面是Executor类的注释</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm"> * Spark executor, backed by a threadpool to run tasks.
+</span><span class="cm"> *
+</span><span class="cm"> * This can be used with Mesos, YARN, and the standalone scheduler.
+</span><span class="cm"> * An internal RPC interface is used for communication with the driver,
+</span><span class="cm"> * except in the case of Mesos fine-grained mode.
+</span><span class="cm"> */</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>上面的大意是 executor 支持在线程池中执行 task。它能够支持 mesos，yarn及standalone模式。
+用RPC接口和drive端进行连接。
+由于没有用过 mesos，最下面说的 fine-grained 模式不知道是什么，有经验的同学可以补充一下</p>
+<h2 id="3-executor-结构">3. Executor 结构</h2>
+<h3 id="31-object">3.1. object</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="k">private</span><span class="o">[</span><span class="kt">spark</span><span class="o">]</span> <span class="k">object</span> <span class="nc">Executor</span> <span class="o">{</span>
+  <span class="c1">// This is reserved for internal use by components that need to read task properties before a
+</span><span class="c1"></span>  <span class="c1">// task is fully deserialized. When possible, the TaskContext.getLocalProperty call should be
+</span><span class="c1"></span>  <span class="c1">// used instead.
+</span><span class="c1"></span>  <span class="k">val</span> <span class="n">taskDeserializationProps</span><span class="k">:</span> <span class="kt">ThreadLocal</span><span class="o">[</span><span class="kt">Properties</span><span class="o">]</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">ThreadLocal</span><span class="o">[</span><span class="kt">Properties</span><span class="o">]</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>很简单，定义了一个线程内参数，用于记录执行信息。
+private[spark] 说明此类只能在spark包内部调用。</p>
+<h3 id="32-class">3.2. class</h3>
+<h4 id="321-构造函数">3.2.1. 构造函数</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="k">private</span><span class="o">[</span><span class="kt">spark</span><span class="o">]</span> <span class="k">class</span> <span class="nc">Executor</span><span class="o">(</span>
+    <span class="n">executorId</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span>
+    <span class="n">executorHostname</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span>
+    <span class="n">env</span><span class="k">:</span> <span class="kt">SparkEnv</span><span class="o">,</span>
+    <span class="n">userClassPath</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">URL</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Nil</span><span class="o">,</span>
+    <span class="n">isLocal</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">false</span><span class="o">,</span>
+    <span class="n">uncaughtExceptionHandler</span><span class="k">:</span> <span class="kt">UncaughtExceptionHandler</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SparkUncaughtExceptionHandler</span><span class="o">)</span>
+  <span class="k">extends</span> <span class="nc">Logging</span> <span class="o">{</span>
+    <span class="c1">// 省略源码... ...
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>同样是spark包内的内部类。</p>
+<h4 id="322-executor-内部类">3.2.2. Executor 内部类</h4>
+<p>主要有2个内部类：</p>
+<h5 id="3221-taskrunner">3.2.2.1. TaskRunner</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala">  <span class="k">class</span> <span class="nc">TaskRunner</span><span class="o">(</span>
+    <span class="n">execBackend</span><span class="k">:</span> <span class="kt">ExecutorBackend</span><span class="o">,</span>
+    <span class="k">private</span> <span class="k">val</span> <span class="n">taskDescription</span><span class="k">:</span> <span class="kt">TaskDescription</span><span class="o">)</span>
+      <span class="k">extends</span> <span class="nc">Runnable</span> <span class="o">{</span><span class="cm">/*省略源码*/</span><span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>主要功能为执行task</p>
+<h5 id="3222-taskreaper">3.2.2.2. TaskReaper</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala">  <span class="k">private</span> <span class="k">class</span> <span class="nc">TaskReaper</span><span class="o">(</span>
+      <span class="n">taskRunner</span><span class="k">:</span> <span class="kt">TaskRunner</span><span class="o">,</span>
+      <span class="k">val</span> <span class="n">interruptThread</span><span class="k">:</span> <span class="kt">Boolean</span><span class="o">,</span>
+      <span class="k">val</span> <span class="n">reason</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+    <span class="k">extends</span> <span class="nc">Runnable</span> <span class="o">{</span> <span class="cm">/*省略源码*/</span> <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>监控关闭task用，默认不启用，如果启用需指明 <em>spark.task.reaper.enabled=true</em></p>
+<h3 id="33-主要内容">3.3. 主要内容</h3>
+<h4 id="331-初始化执行">3.3.1. 初始化执行</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="k">private</span> <span class="k">val</span> <span class="n">threadPool</span> <span class="k">=</span> <span class="o">{</span> <span class="cm">/*省略源码*/</span> <span class="o">}</span>
+<span class="cm">/*省略源码*/</span>
+<span class="k">private</span> <span class="k">val</span> <span class="n">taskReaperPool</span> <span class="k">=</span> <span class="nc">ThreadUtils</span><span class="o">.</span><span class="n">newDaemonCachedThreadPool</span><span class="o">(</span><span class="s">&#34;Task reaper&#34;</span><span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>线程池的创建，threadPool是执行task时的线程池，taskReaperPool 监督正在关闭和取消的task。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala">  <span class="k">private</span> <span class="k">val</span> <span class="n">executorPlugins</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">ExecutorPlugin</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span> <span class="cm">/*省略源码*/</span> <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>获取 <em>spark.executor.plugins</em> 中设置的插件。我目前还没用过这个，就不做进一步的解释了……</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala">  <span class="k">private</span> <span class="k">val</span> <span class="n">heartbeater</span> <span class="k">=</span> <span class="nc">ThreadUtils</span><span class="o">.</span><span class="n">newDaemonSingleThreadScheduledExecutor</span><span class="o">(</span><span class="s">&#34;driver-heartbeater&#34;</span><span class="o">)</span>
+  <span class="k">private</span> <span class="k">val</span> <span class="n">heartbeatReceiverRef</span> <span class="k">=</span>
+    <span class="nc">RpcUtils</span><span class="o">.</span><span class="n">makeDriverRef</span><span class="o">(</span><span class="nc">HeartbeatReceiver</span><span class="o">.</span><span class="nc">ENDPOINT_NAME</span><span class="o">,</span> <span class="n">conf</span><span class="o">,</span> <span class="n">env</span><span class="o">.</span><span class="n">rpcEnv</span><span class="o">)</span>
+  <span class="k">private</span> <span class="k">val</span> <span class="nc">HEARTBEAT_MAX_FAILURES</span> <span class="k">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">getInt</span><span class="o">(</span><span class="s">&#34;spark.executor.heartbeat.maxFailures&#34;</span><span class="o">,</span> <span class="mi">60</span><span class="o">)</span>
+  <span class="n">startDriverHeartbeater</span><span class="o">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>创建心跳，和 driver 交互</p>
+<h4 id="332-执行task入口">3.3.2. 执行Task入口</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">launchTask</span><span class="o">(</span><span class="n">context</span><span class="k">:</span> <span class="kt">ExecutorBackend</span><span class="o">,</span> <span class="n">taskDescription</span><span class="k">:</span> <span class="kt">TaskDescription</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="n">tr</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">TaskRunner</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">taskDescription</span><span class="o">)</span>
+    <span class="n">runningTasks</span><span class="o">.</span><span class="n">put</span><span class="o">(</span><span class="n">taskDescription</span><span class="o">.</span><span class="n">taskId</span><span class="o">,</span> <span class="n">tr</span><span class="o">)</span>
+    <span class="n">threadPool</span><span class="o">.</span><span class="n">execute</span><span class="o">(</span><span class="n">tr</span><span class="o">)</span>
+  <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>开启线程执行task</p>
+<h3 id="34-taskrunner类">3.4. TaskRunner类</h3>
+<p>task的执行类，主要内容在 run() 方法中</p>
+<p>比较重要的源码有：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">value</span> <span class="k">=</span> <span class="nc">Utils</span><span class="o">.</span><span class="n">tryWithSafeFinally</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="n">res</span> <span class="k">=</span> <span class="n">task</span><span class="o">.</span><span class="n">run</span><span class="o">(</span>
+      <span class="n">taskAttemptId</span> <span class="k">=</span> <span class="n">taskId</span><span class="o">,</span>
+      <span class="n">attemptNumber</span> <span class="k">=</span> <span class="n">taskDescription</span><span class="o">.</span><span class="n">attemptNumber</span><span class="o">,</span>
+      <span class="n">metricsSystem</span> <span class="k">=</span> <span class="n">env</span><span class="o">.</span><span class="n">metricsSystem</span><span class="o">)</span>
+    <span class="n">threwException</span> <span class="k">=</span> <span class="kc">false</span>
+    <span class="n">res</span>
+  <span class="o">}</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="n">releasedLocks</span> <span class="k">=</span> <span class="n">env</span><span class="o">.</span><span class="n">blockManager</span><span class="o">.</span><span class="n">releaseAllLocksForTask</span><span class="o">(</span><span class="n">taskId</span><span class="o">)</span>
+    <span class="k">val</span> <span class="n">freedMemory</span> <span class="k">=</span> <span class="n">taskMemoryManager</span><span class="o">.</span><span class="n">cleanUpAllAllocatedMemory</span><span class="o">()</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">freedMemory</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">threwException</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">val</span> <span class="n">errMsg</span> <span class="k">=</span> <span class="s">s&#34;Managed memory leak detected; size = </span><span class="si">$freedMemory</span><span class="s"> bytes, TID = </span><span class="si">$taskId</span><span class="s">&#34;</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">conf</span><span class="o">.</span><span class="n">getBoolean</span><span class="o">(</span><span class="s">&#34;spark.unsafe.exceptionOnMemoryLeak&#34;</span><span class="o">,</span> <span class="kc">false</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nc">SparkException</span><span class="o">(</span><span class="n">errMsg</span><span class="o">)</span>
+      <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">logWarning</span><span class="o">(</span><span class="n">errMsg</span><span class="o">)</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="cm">/*省略部分源码*/</span>
+  <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>上面执行的源码分2部分</p>
+<ol>
+<li>task执行过程</li>
+<li>执行完成或错误后的资源释放等</li>
+</ol>
+<p>run部分剩下的内容大部分都是状态的更新，内容序列化等内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">serializedResult</span><span class="k">:</span> <span class="kt">ByteBuffer</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">maxResultSize</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">resultSize</span> <span class="o">&gt;</span> <span class="n">maxResultSize</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">logWarning</span><span class="o">(</span><span class="s">s&#34;Finished </span><span class="si">$taskName</span><span class="s"> (TID </span><span class="si">$taskId</span><span class="s">). Result is larger than maxResultSize &#34;</span> <span class="o">+</span>
+      <span class="s">s&#34;(</span><span class="si">${</span><span class="nc">Utils</span><span class="o">.</span><span class="n">bytesToString</span><span class="o">(</span><span class="n">resultSize</span><span class="o">)</span><span class="si">}</span><span class="s"> &gt; </span><span class="si">${</span><span class="nc">Utils</span><span class="o">.</span><span class="n">bytesToString</span><span class="o">(</span><span class="n">maxResultSize</span><span class="o">)</span><span class="si">}</span><span class="s">), &#34;</span> <span class="o">+</span>
+      <span class="s">s&#34;dropping it.&#34;</span><span class="o">)</span>
+    <span class="n">ser</span><span class="o">.</span><span class="n">serialize</span><span class="o">(</span><span class="k">new</span> <span class="nc">IndirectTaskResult</span><span class="o">[</span><span class="kt">Any</span><span class="o">](</span><span class="nc">TaskResultBlockId</span><span class="o">(</span><span class="n">taskId</span><span class="o">),</span> <span class="n">resultSize</span><span class="o">))</span>
+  <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">resultSize</span> <span class="o">&gt;</span> <span class="n">maxDirectResultSize</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="n">blockId</span> <span class="k">=</span> <span class="nc">TaskResultBlockId</span><span class="o">(</span><span class="n">taskId</span><span class="o">)</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">blockManager</span><span class="o">.</span><span class="n">putBytes</span><span class="o">(</span>
+      <span class="n">blockId</span><span class="o">,</span>
+      <span class="k">new</span> <span class="nc">ChunkedByteBuffer</span><span class="o">(</span><span class="n">serializedDirectResult</span><span class="o">.</span><span class="n">duplicate</span><span class="o">()),</span>
+      <span class="nc">StorageLevel</span><span class="o">.</span><span class="nc">MEMORY_AND_DISK_SER</span><span class="o">)</span>
+    <span class="n">logInfo</span><span class="o">(</span>
+      <span class="s">s&#34;Finished </span><span class="si">$taskName</span><span class="s"> (TID </span><span class="si">$taskId</span><span class="s">). </span><span class="si">$resultSize</span><span class="s"> bytes result sent via BlockManager)&#34;</span><span class="o">)</span>
+    <span class="n">ser</span><span class="o">.</span><span class="n">serialize</span><span class="o">(</span><span class="k">new</span> <span class="nc">IndirectTaskResult</span><span class="o">[</span><span class="kt">Any</span><span class="o">](</span><span class="n">blockId</span><span class="o">,</span> <span class="n">resultSize</span><span class="o">))</span>
+  <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="n">logInfo</span><span class="o">(</span><span class="s">s&#34;Finished </span><span class="si">$taskName</span><span class="s"> (TID </span><span class="si">$taskId</span><span class="s">). </span><span class="si">$resultSize</span><span class="s"> bytes result sent to driver&#34;</span><span class="o">)</span>
+    <span class="n">serializedDirectResult</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>把获得结果和累加器等返回 driver</p>
+<h2 id="4-题外话">4. 题外话</h2>
+<p>写的很水，因为打字太费劲，就不多写了，以后再补充。说多了都是泪 … …</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2019-03-23</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/2019/03/2019-03-23-learning-spark-1/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://wjhdec.github.io/2019/03/2019-03-23-learning-spark-1/" data-title="spark源码学习（一） —— Executor" data-ralateuid="1628991351"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/spark/">spark</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2019/01/2019-01-06-vscode-docker-windows/" class="prev" rel="prev" title="Windows上用VSCode远程Docker"><i class="fas fa-angle-left fa-fw"></i>Windows上用VSCode远程Docker</a>
+            <a href="/2019/06/2019-06-02-silicone_grease_replace/" class="next" rel="next" title="更换硅脂纪录">更换硅脂纪录<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">WangJH</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{"valine":{"appId":"Ci3pIBS19HLq7q8XHmkDBL6c-MdYXbMMI","appKey":"E839yTkIbo1OVpiSWrhzqkwN","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>java8升级到java11的模块系统 - WJH&#39;s blog</title><meta name="Description" content="Wjh&#39;s blog"><meta property="og:title" content="java8升级到java11的模块系统" />
+<meta property="og:description" content="1. 升级背景 模块化: 指的是从 java9 开始的 java-module Jigsaw 1.1. 升级相关情况及目的 新增功能更方便的模块化 模块系统中可以使用 jlink 压缩java环境，减小最终体积 Java11 为长期支" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wjhdec.github.io/2020/11/2020-11-22-java-update-to-11/" /><meta property="og:image" content="https://wjhdec.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-11-22T10:32:21+08:00" />
+<meta property="article:modified_time" content="2020-11-22T10:32:21+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://wjhdec.github.io/logo.png"/>
+
+<meta name="twitter:title" content="java8升级到java11的模块系统"/>
+<meta name="twitter:description" content="1. 升级背景 模块化: 指的是从 java9 开始的 java-module Jigsaw 1.1. 升级相关情况及目的 新增功能更方便的模块化 模块系统中可以使用 jlink 压缩java环境，减小最终体积 Java11 为长期支"/>
+<meta name="application-name" content="Wjh&#39;s blog">
+<meta name="apple-mobile-web-app-title" content="Wjh&#39;s blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://wjhdec.github.io/2020/11/2020-11-22-java-update-to-11/" /><link rel="prev" href="https://wjhdec.github.io/2020/11/2020-11-19-raspberry-pi-install/" /><link rel="next" href="https://wjhdec.github.io/2020/12/2020-12-04-kodo-dev/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "java8升级到java11的模块系统",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/wjhdec.github.io\/2020\/11\/2020-11-22-java-update-to-11\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/wjhdec.github.io\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "java, docker, jlink, proguard","wordcount":  1682 ,
+        "url": "https:\/\/wjhdec.github.io\/2020\/11\/2020-11-22-java-update-to-11\/","datePublished": "2020-11-22T10:32:21+08:00","dateModified": "2020-11-22T10:32:21+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/wjhdec.github.io\/images\/avatar.png",
+                    "width":  528 ,
+                    "height":  560 
+                }},"author": {
+                "@type": "Person",
+                "name": "王菁浩"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="WJH&#39;s blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>WJH&#39;s blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2020/11/2020-11-22-java-update-to-11/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="WJH&#39;s blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>WJH&#39;s blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/2020/11/2020-11-22-java-update-to-11/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">java8升级到java11的模块系统</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>王菁浩</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF/"><i class="far fa-folder fa-fw"></i>技术</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-11-22">2020-11-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1682 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/2020/11/2020-11-22-java-update-to-11/" class="leancloud_visitors" data-flag-title="java8升级到java11的模块系统">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><div class="sect1">
+<h2 id="_升级背景">1. 升级背景</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>模块化: 指的是从 java9 开始的 <a href="https://www.runoob.com/java/java9-module-system.html">java-module</a>  <a href="https://openjdk.java.net/projects/jigsaw/">Jigsaw</a></p>
+</div>
+<div class="sect2">
+<h3 id="_升级相关情况及目的">1.1. 升级相关情况及目的</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>新增功能更方便的模块化</p>
+</li>
+<li>
+<p>模块系统中可以使用 jlink 压缩java环境，减小最终体积</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Java11 为长期支持版本，理论会比其他版本稳定。
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_升级前环境">1.2. 升级前环境</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>java8环境</p>
+</li>
+<li>
+<p>gradle管理依赖</p>
+</li>
+<li>
+<p>Springboot环境</p>
+</li>
+<li>
+<p>工程分布在多个jar包中</p>
+</li>
+<li>
+<p>有混淆逻辑</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_注意事项">2. 注意事项</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_模块化">2.1. 模块化</h3>
+<div class="paragraph">
+<p>过程很简单，也很复杂，在java根目录加上 <code>module-info.java</code>，再在里面加上依赖及发布内容。
+需要注意，网上一些（一大部分）添加 module-path 的方式是遍历task，只要有编译的就加上 module-path。这种方式会让单元测试报找不到 module-path 的错误，解决方式是只在 compileJava 中添加 module-path。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_模块化中的依赖">2.2. 模块化中的依赖</h3>
+<div class="paragraph">
+<p>其实这也是升级前的最初想法，以前依赖过重，不同版本重复jar包过多，甚至还有各种魔改jar包，有时会出现奇怪的玄学问题。</p>
+</div>
+<div class="paragraph">
+<p>模块系统对依赖特别严格，升级前必须把工程的依赖关系最简化，这关系到原有程序能不能升级为模块系统。</p>
+</div>
+<div class="paragraph">
+<p>由于升级前的工程需要验证kerberos，再加上hive等的客户端验证，需要依赖hadoop。而hadoop的依赖只有你想不到的……，查看依赖，只算各式各样的jackson就不下五六种。
+因此解决依赖分为了几步：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>重新设计kerberos的客户端，去掉对hdfs包里面的用户验证的依赖</p>
+</li>
+<li>
+<p>使用webhdfs代替hdfs，直接使用rest服务访问而不是使用jar包，去掉了对 hdfs 的依赖</p>
+</li>
+<li>
+<p>连接hive的driver改为反射读取，去掉直接的工程内部依赖</p>
+</li>
+<li>
+<p>由于以前多个子工程使用了很多相同的包路径，这在非模块系统中很方便，但是模块系统中反而是个麻烦</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>模块系统中，如果多个依赖 module（jar包）中有相同的 package，且相同package下都有需要对外发布的class，会报冲突。如果想解决，只能自己再封装jar包，比较麻烦。</p>
+</div>
+<div class="paragraph">
+<p>eg.<br/>
+    a.jar 中包含 package <code>c.d.e</code> ，且此包中有 <code>f.class</code><br/>
+    b.jar 中也包含 package <code>c.d.e</code> ，且此包中有 <code>g.class</code><br/>
+如果一个工程同时依赖 a.jar 和 b.jar，则会报冲突。比较常见的解决方法就是把 a.jar 和 b.jar 合并为一个jar包。</p>
+</div>
+</td>
+</tr>
+</tbody></table>
+</div>
+<div class="paragraph">
+<p>经过一系列修改后完成了依赖的最简化，实现了引用的不冲突。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_混淆">2.3. 混淆</h3>
+<div class="paragraph">
+<p>这次的升级顺便修改了混淆的思路，以前是各个子工程不混淆，最后一个门户工程再统一打包混淆；本次升级直接混淆各个子工程，门户工程反而因为没啥具体内容，可以不再混淆。</p>
+</div>
+<div class="paragraph">
+<p>这样的改变其实和模块化有一定关联，模块化中需要在 <code>module-info.java</code> 中指明外部能够访问的内容，且各个模块不能再相同的package下写可执行的内容。如果放到最后再混淆会有以下几个问题：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>每次新添加模块都要考虑修改混淆脚本（路径不同）</p>
+</li>
+<li>
+<p>不能动态的添加模块（每次新加模块都要重新混淆工程）</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+每个模块里面对外发布的内容可以都写成接口，混淆时规定接口不混淆。不准备对外的类可以实现接口，然后添加该类的 Builder 类，暴露出不混淆的接口和 Builder 即可。
+</td>
+</tr>
+</tbody></table>
+</div>
+<div class="sect3">
+<h4 id="_gradle_发布到_nexus_技巧maven_publish_插件">2.3.1. gradle 发布到 nexus 技巧（maven-publish 插件）</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>混淆前的jar包打包及发布逻辑不动</p>
+</li>
+<li>
+<p>混淆后的内容生成jar包时在名称中添加自定义的 classifier，用 artifact 方式和原始jar包一起发布到nexus服务</p>
+</li>
+<li>
+<p>使用的工程用 <code>compile &#39;group:name:version:classifier&#39;</code>，引入依赖，就是在常用的依赖后面加上冒号+自定义的classifier名称</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_jlink">2.4. jlink</h3>
+<div class="paragraph">
+<p>这里是比较难的一块，大概用了两天时间才完成，使用的是 <code>org.beryx.jlink</code> 插件，它能够把工程中非module的包打包成一个（自动执行上面提到的合并jar包过程），然后根据依赖生成精简后的jdk。这里难点有几个：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>像是springboot这种结构比较分散的不好确定依赖，我的流程基本是 <code>测试 → 看错误信息 → jlink中添加依赖</code>，这样的流程重复了几十遍。</p>
+</li>
+<li>
+<p>打包速度慢，一次大概得几分钟</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_docker打包">2.5. docker打包</h3>
+<div class="paragraph">
+<p>这里原以为很简单，实际又跳坑里了。由于jlink打包了jdk，最开始使用的是 <code>alpine</code> 作为基础，但是一直报找不到 java 的错误，后来查资料才知道是alpine中缺少环境。改用 <code>alkoclick/alpine-jdk11-nojdk:latest</code>，成功完成打包。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_成果">3. 成果</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>经过一系列的调整，最直接可见的成果是最后打包docker的体积减小了约60%</p>
+</div>
+</div>
+</div>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-11-22</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/2020/11/2020-11-22-java-update-to-11/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://wjhdec.github.io/2020/11/2020-11-22-java-update-to-11/" data-title="java8升级到java11的模块系统" data-ralateuid="1628991351"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/java/">java</a>,&nbsp;<a href="/tags/docker/">docker</a>,&nbsp;<a href="/tags/jlink/">jlink</a>,&nbsp;<a href="/tags/proguard/">proguard</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2020/11/2020-11-19-raspberry-pi-install/" class="prev" rel="prev" title="树莓派-无显示器安装系统"><i class="fas fa-angle-left fa-fw"></i>树莓派-无显示器安装系统</a>
+            <a href="/2020/12/2020-12-04-kodo-dev/" class="next" rel="next" title="kudu &#43; impala 测试环境搭建及测试">kudu &#43; impala 测试环境搭建及测试<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">WangJH</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{"valine":{"appId":"Ci3pIBS19HLq7q8XHmkDBL6c-MdYXbMMI","appKey":"E839yTkIbo1OVpiSWrhzqkwN","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

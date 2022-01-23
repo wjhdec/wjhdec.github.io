@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Restful 风格接口设计总结 - WJH&#39;s blog</title><meta name="Description" content="Wjh&#39;s blog"><meta property="og:title" content="Restful 风格接口设计总结" />
+<meta property="og:description" content="1. 背景 最近在维护一个非 Restful 接口风格的项目。由于习惯了设计 Restful 风格的接口，每当在这个项目中添加接口时就特别纠结，总有种无从下手的感觉。或许我有强迫" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wjhdec.github.io/2021/01/2021-01-13-restful-design/" /><meta property="og:image" content="https://wjhdec.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-01-13T19:15:21+00:00" />
+<meta property="article:modified_time" content="2021-01-13T19:15:21+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://wjhdec.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Restful 风格接口设计总结"/>
+<meta name="twitter:description" content="1. 背景 最近在维护一个非 Restful 接口风格的项目。由于习惯了设计 Restful 风格的接口，每当在这个项目中添加接口时就特别纠结，总有种无从下手的感觉。或许我有强迫"/>
+<meta name="application-name" content="Wjh&#39;s blog">
+<meta name="apple-mobile-web-app-title" content="Wjh&#39;s blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://wjhdec.github.io/2021/01/2021-01-13-restful-design/" /><link rel="prev" href="https://wjhdec.github.io/2020/12/2020-12-31-gdal-windows-build/" /><link rel="next" href="https://wjhdec.github.io/2021/02/2021-02-13-projection/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Restful 风格接口设计总结",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/wjhdec.github.io\/2021\/01\/2021-01-13-restful-design\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/wjhdec.github.io\/images\/Apple-Devices-Preview.png",
+                            "width":  3200 ,
+                            "height":  2048 
+                        }],"genre": "posts","keywords": "rest","wordcount":  2043 ,
+        "url": "https:\/\/wjhdec.github.io\/2021\/01\/2021-01-13-restful-design\/","datePublished": "2021-01-13T19:15:21+00:00","dateModified": "2021-01-13T19:15:21+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/wjhdec.github.io\/images\/avatar.png",
+                    "width":  528 ,
+                    "height":  560 
+                }},"author": {
+                "@type": "Person",
+                "name": "王菁浩"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="WJH&#39;s blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>WJH&#39;s blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2021/01/2021-01-13-restful-design/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="WJH&#39;s blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>WJH&#39;s blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/2021/01/2021-01-13-restful-design/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Restful 风格接口设计总结</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>王菁浩</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF/"><i class="far fa-folder fa-fw"></i>技术</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-13">2021-01-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2043 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;<span id="/2021/01/2021-01-13-restful-design/" class="leancloud_visitors" data-flag-title="Restful 风格接口设计总结">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-背景">1. 背景</a></li>
+    <li><a href="#2-restful-风格接口核心设计思想">2. Restful 风格接口核心设计思想</a>
+      <ul>
+        <li><a href="#21-一切以-u资源u-为核心">2.1. 一切以 <u><strong>资源</strong></u> 为核心</a></li>
+        <li><a href="#22-url-中-u不要出现u-任何动词">2.2. url 中 <u><strong>不要出现</strong></u> 任何动词</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-restful-中的五大方法">3. Restful 中的五大方法</a></li>
+    <li><a href="#4-restful-设计细节">4. Restful 设计细节</a>
+      <ul>
+        <li><a href="#41-资源名称的设计">4.1. 资源名称的设计</a></li>
+        <li><a href="#42-资源操作设计">4.2. 资源操作设计</a>
+          <ul>
+            <li><a href="#421-获取资源列表">4.2.1. 获取资源列表</a></li>
+            <li><a href="#422-获取单个资源">4.2.2. 获取单个资源</a></li>
+            <li><a href="#423-提交资源">4.2.3. 提交资源</a></li>
+            <li><a href="#424-删除资源">4.2.4. 删除资源</a></li>
+            <li><a href="#425-更新资源">4.2.5. 更新资源</a></li>
+            <li><a href="#426-资源操作模板">4.2.6. 资源操作模板</a></li>
+          </ul>
+        </li>
+        <li><a href="#43-资源分层设计">4.3. 资源分层设计</a></li>
+        <li><a href="#44-验证设计">4.4. 验证设计</a></li>
+        <li><a href="#45-状态设计">4.5. 状态设计</a></li>
+        <li><a href="#46-返回设计">4.6. 返回设计</a>
+          <ul>
+            <li><a href="#461-get-单个资源返回">4.6.1. GET 单个资源返回</a></li>
+            <li><a href="#462-get-列表">4.6.2. GET 列表</a></li>
+            <li><a href="#463-postputpatch-返回">4.6.3. POST/PUT/PATCH 返回</a></li>
+            <li><a href="#464-delete-返回">4.6.4. DELETE 返回</a></li>
+          </ul>
+        </li>
+        <li><a href="#47-返回错误设计">4.7. 返回错误设计</a>
+          <ul>
+            <li><a href="#471-另外一些错误情况">4.7.1. 另外一些错误情况</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#5-总结">5. 总结</a></li>
+    <li><a href="#6-附录-restfulapinet-推荐返回值">6. 附录 restfulapi.net 推荐返回值</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="1-背景">1. 背景</h2>
+<p>最近在维护一个非 Restful 接口风格的项目。由于习惯了设计 Restful 风格的接口，每当在这个项目中添加接口时就特别纠结，总有种无从下手的感觉。或许我有强迫症？？ 🙃 趁这个感觉很别扭的机会总结一下设计思路</p>
+<p>为了方便描述，先假设一个场景，现在有班级和学生两个表，要对这两个表设计接口</p>
+<p>班级表：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>一班</td>
+</tr>
+<tr>
+<td>2</td>
+<td>二班</td>
+</tr>
+</tbody>
+</table>
+<p>学生表：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>class_id</th>
+<th>name</th>
+<th>age</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>甲</td>
+<td>10</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>乙</td>
+<td>11</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2</td>
+<td>丙</td>
+<td>10</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2</td>
+<td>丁</td>
+<td>11</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-restful-风格接口核心设计思想">2. Restful 风格接口核心设计思想</h2>
+<h3 id="21-一切以-u资源u-为核心">2.1. 一切以 <u><strong>资源</strong></u> 为核心</h3>
+<p>Restful 风格的设计中，全部的操作都是围绕 ##资源## 进行的，这是最中心的思想。+
+例如上面的例子中，资源有2个，班级和学生。那么接下来的设计就需要从班级和学生入手</p>
+<h3 id="22-url-中-u不要出现u-任何动词">2.2. url 中 <u><strong>不要出现</strong></u> 任何动词</h3>
+<p>设计的url中 <strong>不要出现</strong> 类似 <code>add</code>、<code>list</code>、<code>delete</code>、<code>start</code>、<code>stop</code> 等任何动词，如果以前没有设计过 Restful 风格接口的话这点会很不适应。但是我感觉这是 Restful 风格显得特别工整的关键。尤其多人的项目，质量又把控不严的情况下，各种五花八门的动词都出现了。例如在同一工程下同时用 <code>delXXX</code> 和 <code>deleteXXX</code> 表示删除。</p>
+<p>同时这种设计使接口更简短直接，能很明白的知道操作的是什么资源。</p>
+<h2 id="3-restful-中的五大方法">3. Restful 中的五大方法</h2>
+<p>GET :: 无论是不是 Restful 风格，这个应该使用最多的方法，获取数据，可能为单个资源或数组
+POST :: 也是特别常用的一个，Restful 风格中它代表的是添加，也就是数据库中的 insert
+PUT :: 更新，这个在非Restful 风格中可能用的不多，意思是更新，数据库中的 update
+DELETE :: 字面意思，删除
+PATCH* :: 这个用的稍微少一些，部分更新，我自己用的比较少，大部分接口实现 put 就够了</p>
+<p>由于 Restful 风格中不允许使用动词，这几个方法就代替了动词的作用，需要合理使用</p>
+<p>NOTE: 上面提到的 <code>start</code>、<code>stop</code> 等方法在 Restful 风格中不能直接体现，一般用 <code>PUT</code> 方法修改资源的状态代替，例如 put {&ldquo;status&rdquo;: &ldquo;start&rdquo;}</p>
+<h2 id="4-restful-设计细节">4. Restful 设计细节</h2>
+<h3 id="41-资源名称的设计">4.1. 资源名称的设计</h3>
+<p>资源肯定都是名词，这都不用细说，另外还有一些官方推荐或我自己的一些建议：</p>
+<ol>
+<li>资源（包括url）全部小写</li>
+<li>资源都为复数，例如上面的班级，要设计成 classes，学生为 students</li>
+<li>如果资源是多个词，可用减号连接。例如 <code>书包</code> 可以写成 school-bags</li>
+</ol>
+<h3 id="42-资源操作设计">4.2. 资源操作设计</h3>
+<p>其实就是如何使用上面的几种方法，这些都有既定的模板</p>
+<h4 id="421-获取资源列表">4.2.1. 获取资源列表</h4>
+<p>获取全部资源或者获取某种条件下的部分资源，条件可以通过参数传入
+例如获取全部班级信息：</p>
+<p><code>GET</code> {base_url}/classes?name=一班</p>
+<h4 id="422-获取单个资源">4.2.2. 获取单个资源</h4>
+<p>通过 ID 获取资源，这里一般把 ID 设计到url路径中，例如：</p>
+<p><code>GET</code> {base_url}/classes/{class_id}</p>
+<h4 id="423-提交资源">4.2.3. 提交资源</h4>
+<p>提交（添加）资源，使用 <code>POST</code> 方法，参数一般为资源的json，例如:</p>
+<p><code>POST</code> {base_url}/classes</p>
+<p>content可以为class的json</p>
+<h4 id="424-删除资源">4.2.4. 删除资源</h4>
+<p>同上，以班级为例
+<code>DELETE</code> {base_url}/classes/{class_id}</p>
+<h4 id="425-更新资源">4.2.5. 更新资源</h4>
+<p><code>PUT</code> 或 <code>PATCH</code> {base_url}/classes/{class_id}</p>
+<p>参数与POST类似</p>
+<h4 id="426-资源操作模板">4.2.6. 资源操作模板</h4>
+<p>稍微总结一下，大部分的接口都可以套用模板</p>
+<p>资源操作模板：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>方法</th>
+<th>url设计</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>添加</td>
+<td>POST</td>
+<td>{base_url}/resources</td>
+</tr>
+<tr>
+<td>获取全部</td>
+<td>GET</td>
+<td>{base_url}/resources</td>
+</tr>
+<tr>
+<td>获取单个</td>
+<td>GET</td>
+<td>{base_url}/resources/{resource_id}</td>
+</tr>
+<tr>
+<td>删除</td>
+<td>DELETE</td>
+<td>{base_url}/resources/{resource_id}</td>
+</tr>
+<tr>
+<td>更新</td>
+<td>PUT 或 PATCH</td>
+<td>{base_url}/resources/{resource_id}</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43-资源分层设计">4.3. 资源分层设计</h3>
+<p>在上面的例子中，班级和学生是一对多的关系，可以认为有层级关系，如果想查询某个班里学生的情况，可以在班级后接学生的资源，例如：</p>
+<p><code>GET</code> {base_url}/classes/{class_id}/students</p>
+<p>同时 students 资源也适用于上面的资源操作模板</p>
+<p>TIP: 这里为了说明分层的设计，认为学生只依赖与班级存在</p>
+<h3 id="44-验证设计">4.4. 验证设计</h3>
+<p>有时接口中会出现验证的需求，例如传 token等</p>
+<p>这里我一般是把验证信息放在请求的 header 里面，在 header 中添加</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">Authorization: <span class="p">&lt;</span><span class="nt">type</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">credentials</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>例如 <code>Authorization: Basic 1234567...</code></p>
+<h3 id="45-状态设计">4.5. 状态设计</h3>
+<p>在 Restful 风格中，http的状态编码特别重要，这些状态码存在 header 中，可在数据处理前先验证状态，
+这里我一般使用HTTP的默认状态码，我感觉一般情况下足够用了，详见 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status[status" target="_blank" rel="noopener noreffer">https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status[status</a> code]</p>
+<h3 id="46-返回设计">4.6. 返回设计</h3>
+<h4 id="461-get-单个资源返回">4.6.1. GET 单个资源返回</h4>
+<p>我的建议是不要在外面套任何东西，请求什么资源就返回什么资源。
+如果请求错误的话有 http status code 的错误代码，内容中可以加上错误信息。正确的话返回一个表示正确的代码有啥用？？在外面套一层没啥用的东西在我看来就是浪费解析资源。</p>
+<h4 id="462-get-列表">4.6.2. GET 列表</h4>
+<p>这里我的习惯是列表全部分页处理，分页参数可以依据需求设计，放在url中，例如 <code>resources?pageSize=10;pageNum=10</code>。返回中包括分页的信息及数组，这里数组外面会包一层分页信息</p>
+<h4 id="463-postputpatch-返回">4.6.3. POST/PUT/PATCH 返回</h4>
+<p>我的建议是返回插入/修改后的资源，结构同单个资源返回</p>
+<h4 id="464-delete-返回">4.6.4. DELETE 返回</h4>
+<p>这里可以什么都不返回，200就足够了&hellip;或者返回删除的ID等</p>
+<h3 id="47-返回错误设计">4.7. 返回错误设计</h3>
+<p>接口中肯定要处理错误请求等，这时一定要返回的是上面提到的 http status code，错误内容可选返回或不返回，看需求处理</p>
+<h4 id="471-另外一些错误情况">4.7.1. 另外一些错误情况</h4>
+<ol>
+<li>get单个信息如果id没有找到一般返回 <code>404</code>，表示没有资源</li>
+<li>如果列表查询中，没有返回，可以返回 204，或灵活处理</li>
+<li>删除中遇到找不到要删除ID的情况，这时如果要删除的东西比较重要，可以返回 4xx</li>
+</ol>
+<h2 id="5-总结">5. 总结</h2>
+<p>Restful 风格并不是一种强制的标准或规范，如何实现可以根据情况自行调整。
+我感觉使用 Restful 风格能带来几点好处：</p>
+<ol>
+<li>url 更加精简漂亮</li>
+<li>设计者和使用者一眼就能明白接口的作用</li>
+<li>类似模板的设计流程可以加快设计速度</li>
+<li>很多插件或工具对符合 Restful 风格的接口很友好，可以少些很多处理解析逻辑，很大程度上减少了代码量</li>
+</ol>
+<h2 id="6-附录-restfulapinet-推荐返回值">6. 附录 restfulapi.net 推荐返回值</h2>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>集合(eg. /users)</th>
+<th>单个项目 (eg. /users/123)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST</td>
+<td>201</td>
+<td>禁止使用</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>200</td>
+<td>200(OK)/404(Not Found)</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>405(不支持)</td>
+<td>200(OK)/404(Not Found)</td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td>405(不支持)</td>
+<td>200(OK)/404(Not Found)</td>
+</tr>
+<tr>
+<td>更新</td>
+<td>405(不支持)</td>
+<td>200(OK)/404(Not Found)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-01-13</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/2021/01/2021-01-13-restful-design/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://wjhdec.github.io/2021/01/2021-01-13-restful-design/" data-title="Restful 风格接口设计总结" data-ralateuid="1628991351"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/rest/">rest</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2020/12/2020-12-31-gdal-windows-build/" class="prev" rel="prev" title="windows下编译GDAL记录"><i class="fas fa-angle-left fa-fw"></i>windows下编译GDAL记录</a>
+            <a href="/2021/02/2021-02-13-projection/" class="next" rel="next" title="投影分类">投影分类<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">WangJH</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{"valine":{"appId":"Ci3pIBS19HLq7q8XHmkDBL6c-MdYXbMMI","appKey":"E839yTkIbo1OVpiSWrhzqkwN","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
