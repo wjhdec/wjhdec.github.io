@@ -77,15 +77,15 @@ public void testStream(){
 
 ![确定域名](03.png)
 
-{{< admonition note>}}
+{{< admonition note "说明">}}
 这里默认是3个月，最多可选择12个月
-{{< /admonition >}}
+{{</admonition >}}
 
 ![确认购买](04.png)
 
-{{< admonition note>}}
+{{< admonition note "说明" >}}
 这里有个坑，后来发现是代理问题，不要用浏览器代理，可以设置成系统代理，然后在浏览器级别设置为系统代理，再购买即可。
-{{< /admonition >}}
+{{</admonition >}}
 
 ## 内网穿透
 
@@ -105,17 +105,14 @@ public void testStream(){
 
 这里勾选 自定义域名，然后在自定义域名那里写下刚才申请的域名
 
-{{< admonition note>}}
+{{< admonition note "说明">}}
 这里如果使用 freenom 自己的 DNS，最好在域名前面加 www. 如果托管的其他的DNS再看情况
-{{< /admonition >}}
+{{</admonition >}}
 
 
 注意这句，等会儿要用到
 
-[quote]
-____
-请把域名CNAME解析到free.idcfengye.com
-____
+> 请把域名CNAME解析到free.idcfengye.com
 
 ### 客户端部署
 
@@ -132,9 +129,9 @@ ____
 
 ![添加CNAME](09.png)
 
-{{< admonition note>}}
+{{< admonition note "说明">}}
 注意NAME关系到使用的网址，这里好像还不支持 `@` ，就用 www 了，这也是上面填自定义域名的时候加上了 www 的原因
-{{< /admonition >}}
+{{</admonition >}}
 
 ## 测试连接
 

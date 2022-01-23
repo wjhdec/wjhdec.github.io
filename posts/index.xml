@@ -31,7 +31,7 @@
     <pubDate>Sat, 13 Feb 2021 10:26:45 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://wjhdec.github.io/2021/02/2021-02-13-projection/</guid>
-    <description><![CDATA[今天大年初二，空气污染，在家复习一下已经忘没的投影知识。 投影分类 {% plantuml %} @startmindmap projection 投影分类 ** 按变形性质分类 ***[#lightblue] 等角投影 ***[#lightblue] 等积投影 *** 任意投影 ****[#lightblue] 等距投影 ****[#lightblue]]]></description>
+    <description><![CDATA[今天大年初二，空气污染，在家复习一下已经忘没的投影知识。 投影分类 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 @startmindmap projection * 投影分类 ** 按变形性质分类]]></description>
 </item><item>
     <title>Restful 风格接口设计总结</title>
     <link>https://wjhdec.github.io/2021/01/2021-01-13-restful-design/</link>

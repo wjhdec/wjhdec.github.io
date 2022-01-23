@@ -7,30 +7,31 @@
 
 ## 投影分类
 
-{% plantuml %}
+```plantuml
 @startmindmap projection
 * 投影分类
-** 按变形性质分类
-***[#lightblue] 等角投影
-***[#lightblue] 等积投影
-*** 任意投影
-****[#lightblue] 等距投影
-****[#lightblue] ...
-** 按构成方法分类
-*** 几何投影
-****[#lightblue] 方位投影 [正轴/横轴/斜轴]
-****[#lightblue] 圆柱投影 [正轴/横轴/斜轴]
-****[#lightblue] 圆锥投影 [正轴/横轴/斜轴]
-*** 非几何投影
-****[#lightblue] 伪方位投影
-****[#lightblue] 伪圆柱投影
-****[#lightblue] 伪圆锥投影
-****[#lightblue] 多圆锥投影
-** 切/割投影
-***[#lightblue] 切投影
-***[#lightblue] 割投影
-@endmindmap
-{% endplantuml %}
+  ** 按变形性质分类
+  ***[#lightblue] 等角投影
+  ***[#lightblue] 等积投影
+  *** 任意投影
+  ****[#lightblue] 等距投影
+  ****[#lightblue] ...
+  ** 按构成方法分类
+  *** 几何投影
+  ****[#lightblue] 方位投影 [正轴/横轴/斜轴]
+  ****[#lightblue] 圆柱投影 [正轴/横轴/斜轴]
+  ****[#lightblue] 圆锥投影 [正轴/横轴/斜轴]
+  *** 非几何投影
+  ****[#lightblue] 伪方位投影
+  ****[#lightblue] 伪圆柱投影
+  ****[#lightblue] 伪圆锥投影
+  ****[#lightblue] 多圆锥投影
+  ** 切/割投影
+  ***[#lightblue] 切投影
+  ***[#lightblue] 割投影
+  @endmindmap
+
+  ```
 
 ## 常用投影
 
