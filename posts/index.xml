@@ -4,7 +4,14 @@
         <link>https://wjhdec.github.io/posts/</link>
         <description>所有文章 | WJH&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>wjhdec@163.com (WangJH)</managingEditor>
-            <webMaster>wjhdec@163.com (WangJH)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 05 Jun 2021 14:39:43 &#43;0000</lastBuildDate><atom:link href="https://wjhdec.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>wjhdec@163.com (WangJH)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 23 Mar 2022 19:54:01 &#43;0800</lastBuildDate><atom:link href="https://wjhdec.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>golang &#43; docker 写服务的部分感受</title>
+    <link>https://wjhdec.github.io/2022/03/2022_03_23_java_to_go/</link>
+    <pubDate>Wed, 23 Mar 2022 19:54:01 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2022/03/2022_03_23_java_to_go/</guid>
+    <description><![CDATA[以前写用 go 语言主要是为了代替 c 语言写算法。直到最近几年 docker，k8s 等容器化部署方式的普及，java写的服务越发感觉臃肿，因此有计划用]]></description>
+</item><item>
     <title>恭王府-补钙要适量</title>
     <link>https://wjhdec.github.io/2021/06/2021-06-05-tourism-bj-gongwangfu/</link>
     <pubDate>Sat, 05 Jun 2021 14:39:43 &#43;0000</pubDate>
@@ -67,12 +74,5 @@
     <author>作者</author>
     <guid>https://wjhdec.github.io/2020/11/2020-11-19-raspberry-pi-install/</guid>
     <description><![CDATA[我一般用树莓派当服务器用，因此一般不安装界面，直接安装最简版，但是正常的安装过程需要把树莓派做好后再连接一个显示器进行配置。下面整理了不用再]]></description>
-</item><item>
-    <title>2020年10月山西自驾游</title>
-    <link>https://wjhdec.github.io/2020/11/2020-11-08-tourism-shanxi/</link>
-    <pubDate>Sun, 08 Nov 2020 11:01:48 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://wjhdec.github.io/2020/11/2020-11-08-tourism-shanxi/</guid>
-    <description><![CDATA[由于疫情，今年没有去太远的地方，为了打个时间差，10月5日出发，10日返回 1. 相关行程 时间： 2020-10-05 ~ 2020-10-9 共5天 交通： 自驾 2. 旅游经历 2.1. 10月5日 太原-]]></description>
 </item></channel>
 </rss>
