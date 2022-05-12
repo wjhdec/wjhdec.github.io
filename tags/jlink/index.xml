@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>jlink - 标签 - WJH&#39;s blog</title>
+        <link>https://wjhdec.github.io/tags/jlink/</link>
+        <description>jlink - 标签 - WJH&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>wjhdec@163.com (WangJH)</managingEditor>
+            <webMaster>wjhdec@163.com (WangJH)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 22 Nov 2020 10:32:21 &#43;0800</lastBuildDate><atom:link href="https://wjhdec.github.io/tags/jlink/" rel="self" type="application/rss+xml" /><item>
+    <title>java8升级到java11的模块系统</title>
+    <link>https://wjhdec.github.io/2020/11/2020-11-22-java-update-to-11/</link>
+    <pubDate>Sun, 22 Nov 2020 10:32:21 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2020/11/2020-11-22-java-update-to-11/</guid>
+    <description><![CDATA[1. 升级背景 模块化: 指的是从 java9 开始的 java-module Jigsaw 1.1. 升级相关情况及目的 新增功能更方便的模块化 模块系统中可以使用 jlink 压缩java环境，减小最终体积 Java11 为长期支]]></description>
+</item></channel>
+</rss>

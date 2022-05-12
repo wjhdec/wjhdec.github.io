@@ -1,0 +1,39 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>spark - 标签 - WJH&#39;s blog</title>
+        <link>https://wjhdec.github.io/tags/spark/</link>
+        <description>spark - 标签 - WJH&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>wjhdec@163.com (WangJH)</managingEditor>
+            <webMaster>wjhdec@163.com (WangJH)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 30 Apr 2020 19:22:37 &#43;0800</lastBuildDate><atom:link href="https://wjhdec.github.io/tags/spark/" rel="self" type="application/rss+xml" /><item>
+    <title>flatMap 在 Scala(Spark)/Java8 中的使用</title>
+    <link>https://wjhdec.github.io/2020/04/2020-04-30-flatmap/</link>
+    <pubDate>Thu, 30 Apr 2020 19:22:37 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2020/04/2020-04-30-flatmap/</guid>
+    <description><![CDATA[flatMap 是个很神奇的东西，一般是学习 scala 的第一个坎儿，其实很简单，下面分别从 Scala，Spark（Dataset），Java8（lambda）说明]]></description>
+</item><item>
+    <title>spark源码学习（一） —— Executor</title>
+    <link>https://wjhdec.github.io/2019/03/2019-03-23-learning-spark-1/</link>
+    <pubDate>Sat, 23 Mar 2019 18:12:54 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2019/03/2019-03-23-learning-spark-1/</guid>
+    <description><![CDATA[<blockquote>
+<p>不了解spark运行方式而写出的app是没有灵魂的  ———— XXX</p>
+</blockquote>
+<p>其实两年前就想写，但是由于比较懒，一直没动笔，今天还是写点吧。顺便练习一下五笔。</p>]]></description>
+</item><item>
+    <title>Spark中多个Dataset进行union操作的方法</title>
+    <link>https://wjhdec.github.io/2018/01/2018-01-12-sparkunion/</link>
+    <pubDate>Fri, 12 Jan 2018 08:48:41 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2018/01/2018-01-12-sparkunion/</guid>
+    <description><![CDATA[开年第一篇，写个简单点的。spark中多个Dataset进行union的方式，这种情况并不是太多见，不过也不算少，例如合并多个按时间保存的数]]></description>
+</item><item>
+    <title>Windows系统上spark环境搭建</title>
+    <link>https://wjhdec.github.io/2017/08/2017-08-13-sparkonwindows/</link>
+    <pubDate>Sun, 13 Aug 2017 08:26:45 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2017/08/2017-08-13-sparkonwindows/</guid>
+    <description><![CDATA[今天测试一下在window上搭建spark环境，此环境只适用于代码测试，实际运行要在集群环境下。 基本环境 我在自己的个人电脑上搭建，环境为 win10 家]]></description>
+</item></channel>
+</rss>

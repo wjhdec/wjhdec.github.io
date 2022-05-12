@@ -1,0 +1,36 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>docker - 标签 - WJH&#39;s blog</title>
+        <link>https://wjhdec.github.io/tags/docker/</link>
+        <description>docker - 标签 - WJH&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>wjhdec@163.com (WangJH)</managingEditor>
+            <webMaster>wjhdec@163.com (WangJH)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 22 Nov 2020 10:32:21 &#43;0800</lastBuildDate><atom:link href="https://wjhdec.github.io/tags/docker/" rel="self" type="application/rss+xml" /><item>
+    <title>java8升级到java11的模块系统</title>
+    <link>https://wjhdec.github.io/2020/11/2020-11-22-java-update-to-11/</link>
+    <pubDate>Sun, 22 Nov 2020 10:32:21 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2020/11/2020-11-22-java-update-to-11/</guid>
+    <description><![CDATA[1. 升级背景 模块化: 指的是从 java9 开始的 java-module Jigsaw 1.1. 升级相关情况及目的 新增功能更方便的模块化 模块系统中可以使用 jlink 压缩java环境，减小最终体积 Java11 为长期支]]></description>
+</item><item>
+    <title>在windows上使用dockermachine创建docker</title>
+    <link>https://wjhdec.github.io/2019/08/2019-08-10-docker-machine-on-windows/</link>
+    <pubDate>Wed, 21 Aug 2019 21:02:05 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2019/08/2019-08-10-docker-machine-on-windows/</guid>
+    <description><![CDATA[以前写过直接在windows下安装打包好的安装包 详见这里，这种方式依赖过多，安装时可能或多或少影响现在的环境。这次直接用 docker-machine 安装，很大程度上避]]></description>
+</item><item>
+    <title>Windows上用VSCode远程Docker</title>
+    <link>https://wjhdec.github.io/2019/01/2019-01-06-vscode-docker-windows/</link>
+    <pubDate>Sun, 06 Jan 2019 09:48:53 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2019/01/2019-01-06-vscode-docker-windows/</guid>
+    <description><![CDATA[Windows下安装docker坑实在时太多，安装完成后其他虚拟机基本上没法用。 VSCode中有docker的插件，正好利用一下。 **注意：]]></description>
+</item><item>
+    <title>Docker在win10 home版下安装</title>
+    <link>https://wjhdec.github.io/2018/01/2018-01-20-dockeronwin10/</link>
+    <pubDate>Sat, 20 Jan 2018 09:07:05 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2018/01/2018-01-20-dockeronwin10/</guid>
+    <description><![CDATA[由于有正式版的win10 home许可，不想升级专业版或其他的了，于是测试在win10 home版下安装docker **注意：**本安装只适用于]]></description>
+</item></channel>
+</rss>

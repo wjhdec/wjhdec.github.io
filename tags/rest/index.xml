@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>rest - 标签 - WJH&#39;s blog</title>
+        <link>https://wjhdec.github.io/tags/rest/</link>
+        <description>rest - 标签 - WJH&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>wjhdec@163.com (WangJH)</managingEditor>
+            <webMaster>wjhdec@163.com (WangJH)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 13 Jan 2021 19:15:21 &#43;0000</lastBuildDate><atom:link href="https://wjhdec.github.io/tags/rest/" rel="self" type="application/rss+xml" /><item>
+    <title>Restful 风格接口设计总结</title>
+    <link>https://wjhdec.github.io/2021/01/2021-01-13-restful-design/</link>
+    <pubDate>Wed, 13 Jan 2021 19:15:21 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2021/01/2021-01-13-restful-design/</guid>
+    <description><![CDATA[1. 背景 最近在维护一个非 Restful 接口风格的项目。由于习惯了设计 Restful 风格的接口，每当在这个项目中添加接口时就特别纠结，总有种无从下手的感觉。或许我有强迫]]></description>
+</item></channel>
+</rss>

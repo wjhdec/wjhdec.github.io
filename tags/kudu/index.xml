@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>kudu - 标签 - WJH&#39;s blog</title>
+        <link>https://wjhdec.github.io/tags/kudu/</link>
+        <description>kudu - 标签 - WJH&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>wjhdec@163.com (WangJH)</managingEditor>
+            <webMaster>wjhdec@163.com (WangJH)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 04 Dec 2020 21:15:21 &#43;0800</lastBuildDate><atom:link href="https://wjhdec.github.io/tags/kudu/" rel="self" type="application/rss+xml" /><item>
+    <title>kudu &#43; impala 测试环境搭建及测试</title>
+    <link>https://wjhdec.github.io/2020/12/2020-12-04-kodo-dev/</link>
+    <pubDate>Fri, 04 Dec 2020 21:15:21 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2020/12/2020-12-04-kodo-dev/</guid>
+    <description><![CDATA[1. 配置 kudu 1.1. 配置执行环境 直接使用官网 quickstart 的部署方法，使用docker安装。 docker 安装方法可见另一个帖子 使用 docker-machine 安装docker。 我使用的是win10 自]]></description>
+</item></channel>
+</rss>

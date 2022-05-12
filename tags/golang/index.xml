@@ -1,0 +1,29 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>golang - 标签 - WJH&#39;s blog</title>
+        <link>https://wjhdec.github.io/tags/golang/</link>
+        <description>golang - 标签 - WJH&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>wjhdec@163.com (WangJH)</managingEditor>
+            <webMaster>wjhdec@163.com (WangJH)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 23 Mar 2022 19:54:01 &#43;0800</lastBuildDate><atom:link href="https://wjhdec.github.io/tags/golang/" rel="self" type="application/rss+xml" /><item>
+    <title>golang &#43; docker 写服务的部分感受</title>
+    <link>https://wjhdec.github.io/2022/03/2022_03_23_java_to_go/</link>
+    <pubDate>Wed, 23 Mar 2022 19:54:01 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2022/03/2022_03_23_java_to_go/</guid>
+    <description><![CDATA[以前写用 go 语言主要是为了代替 c 语言写算法。直到最近几年 docker，k8s 等容器化部署方式的普及，java写的服务越发感觉臃肿，因此有计划用]]></description>
+</item><item>
+    <title>在 golang 中使用 GDAL（Windows环境）</title>
+    <link>https://wjhdec.github.io/2021/06/2021-06-02-gdal-in-golang/</link>
+    <pubDate>Wed, 02 Jun 2021 21:15:45 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2021/06/2021-06-02-gdal-in-golang/</guid>
+    <description><![CDATA[今天下午才说windows下的go语言不能调用 GDAL，晚上回来看一下源码，发现可以在Windows下使用。写下来记录一下。 1. 背景说明 以前都]]></description>
+</item><item>
+    <title>GoLang实现红黑树</title>
+    <link>https://wjhdec.github.io/2016/05/2016_05_15_golangrbtree/</link>
+    <pubDate>Sun, 15 May 2016 18:57:23 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2016/05/2016_05_15_golangrbtree/</guid>
+    <description><![CDATA[用Golang实现红黑树算是一次尝试，毕竟工作环境没用到，不知道以后会不会用。自己也是看着玩，开阔一下思路。从我开始看Golang的doc到]]></description>
+</item></channel>
+</rss>

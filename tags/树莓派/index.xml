@@ -1,0 +1,22 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>树莓派 - 标签 - WJH&#39;s blog</title>
+        <link>https://wjhdec.github.io/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/</link>
+        <description>树莓派 - 标签 - WJH&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>wjhdec@163.com (WangJH)</managingEditor>
+            <webMaster>wjhdec@163.com (WangJH)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 19 Nov 2020 21:19:21 &#43;0800</lastBuildDate><atom:link href="https://wjhdec.github.io/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" rel="self" type="application/rss+xml" /><item>
+    <title>树莓派-无显示器安装系统</title>
+    <link>https://wjhdec.github.io/2020/11/2020-11-19-raspberry-pi-install/</link>
+    <pubDate>Thu, 19 Nov 2020 21:19:21 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2020/11/2020-11-19-raspberry-pi-install/</guid>
+    <description><![CDATA[我一般用树莓派当服务器用，因此一般不安装界面，直接安装最简版，但是正常的安装过程需要把树莓派做好后再连接一个显示器进行配置。下面整理了不用再]]></description>
+</item><item>
+    <title>树莓派部署免费公网站点</title>
+    <link>https://wjhdec.github.io/2020/07/2020-07-08-raspberry-pi-website/</link>
+    <pubDate>Wed, 08 Jul 2020 19:19:21 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2020/07/2020-07-08-raspberry-pi-website/</guid>
+    <description><![CDATA[树莓派买来闲置有段时间了，搭一些简单的服务有点浪费，这次准备用起来 配置树莓派 安装服务 这里选择了比较简单的 nginx-light 有其他需求也可以部署apache，]]></description>
+</item></channel>
+</rss>

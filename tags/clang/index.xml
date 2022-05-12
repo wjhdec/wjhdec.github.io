@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>clang - 标签 - WJH&#39;s blog</title>
+        <link>https://wjhdec.github.io/tags/clang/</link>
+        <description>clang - 标签 - WJH&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>wjhdec@163.com (WangJH)</managingEditor>
+            <webMaster>wjhdec@163.com (WangJH)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 15 Jun 2016 22:00:22 &#43;0800</lastBuildDate><atom:link href="https://wjhdec.github.io/tags/clang/" rel="self" type="application/rss+xml" /><item>
+    <title>Clang 编译</title>
+    <link>https://wjhdec.github.io/2016/06/2016_06_15_clangbuild/</link>
+    <pubDate>Wed, 15 Jun 2016 22:00:22 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2016/06/2016_06_15_clangbuild/</guid>
+    <description><![CDATA[最近准备用C改一些东西，准备尝试一下LLVM和Clang，正好写一下它的编译。 1. 编译环境 由于在个人电脑上编译，为了不影响我那几个RPG和时常]]></description>
+</item></channel>
+</rss>

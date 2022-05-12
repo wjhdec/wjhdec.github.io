@@ -1,0 +1,78 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>技术 - 分类 - WJH&#39;s blog</title>
+        <link>https://wjhdec.github.io/categories/%E6%8A%80%E6%9C%AF/</link>
+        <description>技术 - 分类 - WJH&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>wjhdec@163.com (WangJH)</managingEditor>
+            <webMaster>wjhdec@163.com (WangJH)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 23 Mar 2022 19:54:01 &#43;0800</lastBuildDate><atom:link href="https://wjhdec.github.io/categories/%E6%8A%80%E6%9C%AF/" rel="self" type="application/rss+xml" /><item>
+    <title>golang &#43; docker 写服务的部分感受</title>
+    <link>https://wjhdec.github.io/2022/03/2022_03_23_java_to_go/</link>
+    <pubDate>Wed, 23 Mar 2022 19:54:01 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2022/03/2022_03_23_java_to_go/</guid>
+    <description><![CDATA[以前写用 go 语言主要是为了代替 c 语言写算法。直到最近几年 docker，k8s 等容器化部署方式的普及，java写的服务越发感觉臃肿，因此有计划用]]></description>
+</item><item>
+    <title>在 golang 中使用 GDAL（Windows环境）</title>
+    <link>https://wjhdec.github.io/2021/06/2021-06-02-gdal-in-golang/</link>
+    <pubDate>Wed, 02 Jun 2021 21:15:45 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2021/06/2021-06-02-gdal-in-golang/</guid>
+    <description><![CDATA[今天下午才说windows下的go语言不能调用 GDAL，晚上回来看一下源码，发现可以在Windows下使用。写下来记录一下。 1. 背景说明 以前都]]></description>
+</item><item>
+    <title>吐槽一下最近开发 c&#43;&#43; 的经历</title>
+    <link>https://wjhdec.github.io/2021/04/2021-04-10-about-cpp/</link>
+    <pubDate>Sat, 10 Apr 2021 08:12:45 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2021/04/2021-04-10-about-cpp/</guid>
+    <description><![CDATA[最近很忙，没空写东西，今天趁着昨晚的 nightly build 还没完成，写点东西，做个小结。 1. 背景 我平时做大数据开发，用 Linux 环境做开发更顺手。最近项目中要维护 Windows 桌面]]></description>
+</item><item>
+    <title>投影分类</title>
+    <link>https://wjhdec.github.io/2021/02/2021-02-13-projection/</link>
+    <pubDate>Sat, 13 Feb 2021 10:26:45 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2021/02/2021-02-13-projection/</guid>
+    <description><![CDATA[今天大年初二，空气污染，在家复习一下已经忘没的投影知识。 投影分类 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 @startmindmap projection * 投影分类 ** 按变形性质分类]]></description>
+</item><item>
+    <title>Restful 风格接口设计总结</title>
+    <link>https://wjhdec.github.io/2021/01/2021-01-13-restful-design/</link>
+    <pubDate>Wed, 13 Jan 2021 19:15:21 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2021/01/2021-01-13-restful-design/</guid>
+    <description><![CDATA[1. 背景 最近在维护一个非 Restful 接口风格的项目。由于习惯了设计 Restful 风格的接口，每当在这个项目中添加接口时就特别纠结，总有种无从下手的感觉。或许我有强迫]]></description>
+</item><item>
+    <title>windows下编译GDAL记录</title>
+    <link>https://wjhdec.github.io/2020/12/2020-12-31-gdal-windows-build/</link>
+    <pubDate>Thu, 31 Dec 2020 22:05:21 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2020/12/2020-12-31-gdal-windows-build/</guid>
+    <description><![CDATA[背景 这应该是今年最后一个帖子了，由于准备在java中使用gdal，而现在各种预编译版本中一般没有java的支持，需要自己编译。上班时用的 Li]]></description>
+</item><item>
+    <title>kudu &#43; impala 测试环境搭建及测试</title>
+    <link>https://wjhdec.github.io/2020/12/2020-12-04-kodo-dev/</link>
+    <pubDate>Fri, 04 Dec 2020 21:15:21 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2020/12/2020-12-04-kodo-dev/</guid>
+    <description><![CDATA[1. 配置 kudu 1.1. 配置执行环境 直接使用官网 quickstart 的部署方法，使用docker安装。 docker 安装方法可见另一个帖子 使用 docker-machine 安装docker。 我使用的是win10 自]]></description>
+</item><item>
+    <title>java8升级到java11的模块系统</title>
+    <link>https://wjhdec.github.io/2020/11/2020-11-22-java-update-to-11/</link>
+    <pubDate>Sun, 22 Nov 2020 10:32:21 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2020/11/2020-11-22-java-update-to-11/</guid>
+    <description><![CDATA[1. 升级背景 模块化: 指的是从 java9 开始的 java-module Jigsaw 1.1. 升级相关情况及目的 新增功能更方便的模块化 模块系统中可以使用 jlink 压缩java环境，减小最终体积 Java11 为长期支]]></description>
+</item><item>
+    <title>树莓派-无显示器安装系统</title>
+    <link>https://wjhdec.github.io/2020/11/2020-11-19-raspberry-pi-install/</link>
+    <pubDate>Thu, 19 Nov 2020 21:19:21 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2020/11/2020-11-19-raspberry-pi-install/</guid>
+    <description><![CDATA[我一般用树莓派当服务器用，因此一般不安装界面，直接安装最简版，但是正常的安装过程需要把树莓派做好后再连接一个显示器进行配置。下面整理了不用再]]></description>
+</item><item>
+    <title>树莓派部署免费公网站点</title>
+    <link>https://wjhdec.github.io/2020/07/2020-07-08-raspberry-pi-website/</link>
+    <pubDate>Wed, 08 Jul 2020 19:19:21 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2020/07/2020-07-08-raspberry-pi-website/</guid>
+    <description><![CDATA[树莓派买来闲置有段时间了，搭一些简单的服务有点浪费，这次准备用起来 配置树莓派 安装服务 这里选择了比较简单的 nginx-light 有其他需求也可以部署apache，]]></description>
+</item></channel>
+</rss>

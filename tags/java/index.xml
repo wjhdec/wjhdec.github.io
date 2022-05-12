@@ -1,0 +1,36 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>java - 标签 - WJH&#39;s blog</title>
+        <link>https://wjhdec.github.io/tags/java/</link>
+        <description>java - 标签 - WJH&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>wjhdec@163.com (WangJH)</managingEditor>
+            <webMaster>wjhdec@163.com (WangJH)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 22 Nov 2020 10:32:21 &#43;0800</lastBuildDate><atom:link href="https://wjhdec.github.io/tags/java/" rel="self" type="application/rss+xml" /><item>
+    <title>java8升级到java11的模块系统</title>
+    <link>https://wjhdec.github.io/2020/11/2020-11-22-java-update-to-11/</link>
+    <pubDate>Sun, 22 Nov 2020 10:32:21 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2020/11/2020-11-22-java-update-to-11/</guid>
+    <description><![CDATA[1. 升级背景 模块化: 指的是从 java9 开始的 java-module Jigsaw 1.1. 升级相关情况及目的 新增功能更方便的模块化 模块系统中可以使用 jlink 压缩java环境，减小最终体积 Java11 为长期支]]></description>
+</item><item>
+    <title>Jackson自动对类型格式化</title>
+    <link>https://wjhdec.github.io/2018/01/2018-01-13-jacksonformat/</link>
+    <pubDate>Sat, 13 Jan 2018 09:03:03 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2018/01/2018-01-13-jacksonformat/</guid>
+    <description><![CDATA[现在很多框架都是自动配置，方便了许多，但是也因此带来了麻烦。例如一些特殊的情况下，自动完成的不能满足需求。Jackson也有类似的问题，这时]]></description>
+</item><item>
+    <title>Jetty安装脚本</title>
+    <link>https://wjhdec.github.io/2017/08/2017-08-16-jettyinstaller/</link>
+    <pubDate>Wed, 16 Aug 2017 08:42:44 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2017/08/2017-08-16-jettyinstaller/</guid>
+    <description><![CDATA[从头部署jetty比较麻烦，这里写了一个安装jetty的脚本，可以比较快速的部署jetty。 主要功能 创建用户及组 解压jetty 配置程序与工作]]></description>
+</item><item>
+    <title>JAVA做自定义正则替换</title>
+    <link>https://wjhdec.github.io/2016/05/2016_05_28_javaregexexchange/</link>
+    <pubDate>Sat, 28 May 2016 21:47:18 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2016/05/2016_05_28_javaregexexchange/</guid>
+    <description><![CDATA[JAVA的正则替换用String类里的repalceAll方法就可以实现，但是这个方法有一个不小的缺陷，只能把正则查找出来的内容用同一段内容]]></description>
+</item></channel>
+</rss>

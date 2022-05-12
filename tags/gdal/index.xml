@@ -1,0 +1,22 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>gdal - 标签 - WJH&#39;s blog</title>
+        <link>https://wjhdec.github.io/tags/gdal/</link>
+        <description>gdal - 标签 - WJH&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>wjhdec@163.com (WangJH)</managingEditor>
+            <webMaster>wjhdec@163.com (WangJH)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 02 Jun 2021 21:15:45 &#43;0800</lastBuildDate><atom:link href="https://wjhdec.github.io/tags/gdal/" rel="self" type="application/rss+xml" /><item>
+    <title>在 golang 中使用 GDAL（Windows环境）</title>
+    <link>https://wjhdec.github.io/2021/06/2021-06-02-gdal-in-golang/</link>
+    <pubDate>Wed, 02 Jun 2021 21:15:45 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2021/06/2021-06-02-gdal-in-golang/</guid>
+    <description><![CDATA[今天下午才说windows下的go语言不能调用 GDAL，晚上回来看一下源码，发现可以在Windows下使用。写下来记录一下。 1. 背景说明 以前都]]></description>
+</item><item>
+    <title>windows下编译GDAL记录</title>
+    <link>https://wjhdec.github.io/2020/12/2020-12-31-gdal-windows-build/</link>
+    <pubDate>Thu, 31 Dec 2020 22:05:21 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2020/12/2020-12-31-gdal-windows-build/</guid>
+    <description><![CDATA[背景 这应该是今年最后一个帖子了，由于准备在java中使用gdal，而现在各种预编译版本中一般没有java的支持，需要自己编译。上班时用的 Li]]></description>
+</item></channel>
+</rss>

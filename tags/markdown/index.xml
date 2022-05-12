@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>markdown - 标签 - WJH&#39;s blog</title>
+        <link>https://wjhdec.github.io/tags/markdown/</link>
+        <description>markdown - 标签 - WJH&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>wjhdec@163.com (WangJH)</managingEditor>
+            <webMaster>wjhdec@163.com (WangJH)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 02 Jul 2016 22:28:09 &#43;0800</lastBuildDate><atom:link href="https://wjhdec.github.io/tags/markdown/" rel="self" type="application/rss+xml" /><item>
+    <title>Markdown导出html时rowspan与colspan的处理</title>
+    <link>https://wjhdec.github.io/2016/07/2016_07_02_markdownrowspan/</link>
+    <pubDate>Sat, 02 Jul 2016 22:28:09 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://wjhdec.github.io/2016/07/2016_07_02_markdownrowspan/</guid>
+    <description><![CDATA[MarkDwon原生不支持table，用扩展的table很简单方便，但是这个table不支持单元格合并。用html可以写出需要的表格，但是写]]></description>
+</item></channel>
+</rss>
