@@ -1,0 +1,617 @@
+[
+    {
+        "title": "About",
+        "uri": "about",
+        "content": "1                  2         GIS          GIS               GIS                  2 1                           Spark Scala    CDH HDP                                 Java Python",
+        "objectID": "about",
+        "date": "2019-08-02T03:04:49.000Z",
+        "draft": false,
+        "lightgallery": true,
+        "math": {
+            "enable": true
+        }
+    },
+    {
+        "title": "文档",
+        "uri": "categories/documentation",
+        "content": "",
+        "objectID": "categories/documentation"
+    },
+    {
+        "title": "GoLang实现红黑树",
+        "uri": "posts/2016_05_15_GolangRBTree",
+        "content": "sectnums   icons  font  stem   Golang                                                    Golang doc            2          Golang                                                             wiki  https   en wikipedia org wiki Red E2 80 93black_tree        golang                                                  wiki                                                                                                                                       github                 https   github com wjhdec util tree master trees rbtree rbtree                    Golang                                          wiki                            1               2                                                                             3                                                                   4                                                     5                                                                                black depth                            black height black height                4 5                  latexmath  O log_2n                                                                                                                       2                                      image  1       jpg title                                  Golang                              2            source golang  const      RED     true RED bool   true    BLACK     false BLACK bool   false                                      3                          source golang     RBNode     type RBNode struct   value int64 color bool left  right  parent  RBNode                                 source go     getGrandParent               func  rbnode RBNode  getGrandParent   RBNode              getSibling          func  rbnode RBNode  getSibling   RBNode              GetUncle            func  rbnode RBNode  getUncle   RBNode                            Root                             source go  type RBTree struct   root  RBNode                                                                                                           source go  const         LEFTROTATE bool   true       RIGHTROTATE bool   false                      image  2 3    jpg title       TIP      P      N      P  N        N        P               image  2 3    jpg title       TIP              N         P         NOTE                         N                 RBTree          root  N                     source go     rotate   true   false                    func  rbnode RBNode  rotate isRotateLeft bool   RBNode  error    var root  RBNode rbnode    nil   return root  nil    isRotateLeft    rbnode left    nil   return root  errors New                else isRotateLeft    rbnode right    nil   return root  errors New                parent    rbnode parent var isleft bool parent    nil   isleft   parent left    rbnode   isRotateLeft   grandson    rbnode right left rbnode right left   rbnode rbnode parent   rbnode right rbnode right   grandson   else   grandson    rbnode left right rbnode left right   rbnode rbnode parent   rbnode left rbnode left   grandson                parent    nil   rbnode parent parent   nil root   rbnode parent   else   isleft   parent left   rbnode parent   else   parent right   rbnode parent   rbnode parent parent   parent   return root  nil                                                                                   source go  func  rbtree RBTree  insertNode pnode RBNode  data int64    pnode value    data                       pnode left    nil   rbtree insertNode pnode left  data    else   tmpnode    NewRBNode data  tmpnode parent   pnode pnode left   tmpnode rbtree insertCheck tmpnode      else                      pnode right    nil   rbtree insertNode pnode right  data    else   tmpnode    NewRBNode data  tmpnode parent   pnode pnode right   tmpnode         rbtree insertCheck tmpnode                                                       root                                                     2                                                                      4 5                                             N N    P N     U N     G         U            G          2                                    U                                        U          a   U     P U                                              G                   G                                                                              N P                             image  3 2    3 1      jpg title         b   U                                                                                               source go  func  rbtree RBTree  rotateLeft node RBNode    tmproot  err    node rotate LEFTROTATE   err    nil   tmproot    nil   rbtree root   tmproot     else   log Printf err Error                                          N P        P   G            G             P     G                           image  3 2    3 2 1    jpg title       N P         P G            P                             1      1                                                          image  3 2    3 2 2    jpg title                                source go  func  rbtree RBTree  insertNode pnode",
+        "objectID": "posts/2016_05_15_GolangRBTree",
+        "excerpt": "盼望已久的五一终于到来了！我一直在考虑要不要利用这几天时间好好睡上一觉，习惯成自然，宅也是如此。睡觉都觉得无聊的时候，就有了写点什么的想法。也借此机会提高一下写作能力，看看什么时候能写一部长篇小说。",
+        "date": "2016-05-15T10:57:23.000Z",
+        "author": "王菁浩",
+        "tags": [
+            "golang",
+            "index"
+        ],
+        "categories": [
+            "技术"
+        ],
+        "math": true,
+        "toc": true
+    },
+    {
+        "title": "JAVA做自定义正则替换",
+        "uri": "posts/2016_05_28_javaRegexExchange",
+        "content": "JAVA      String   repalceAll                                                   appendReplacement                                   1       1 1          java package util extregex  import java util regex Matcher  import java util regex Pattern               author wjh    public abstract class AbstractExtReplace   private String regexstr                      param word       return             protected abstract String treateWord String word                       param regexstr    protected void setRegexstr String regexstr   this regexstr   regexstr            param input       return    public String extReplace String input   return extReplace regexstr  input  false             param input       param useGroupName     groupname   false  return    public String extReplace String input  Boolean useGroupName   useGroupName    useGroupName    null  false useGroupName  return extReplace regexstr  input  useGroupName                    param regex          param input           param useGroupName     groupname  return            protected String extReplace String regexstr  String input  Boolean useGroupName   Pattern p   Pattern compile regexstr   Matcher m   p matcher input   StringBuffer sb   new StringBuffer     m find      String replacement   treateWord m group     if  useGroupName        groupname        replacement   replacement replace               replace                m appendReplacement sb  replacement     m appendTail sb   return sb toString          1 2          AbstractExtReplace            java package util extregex                                  eg  myName    my_name  author wjh    public class LowerMethExtReplace extends AbstractExtReplace                                eg  myName    my_name    public LowerMethExtReplace     setRegexstr   A Z        Override protected String treateWord String word    return  _    word toLowerCase          1 3       java package main  import util extregex LowerMethExtReplace  public class Main   public static void main String   args    AbstractExtReplace lowerMeth   new LowerMethExtReplace    String result   lowerMeth extReplace  userName myValue    System out println result         username myvamlue       2             java    String replaceall      java public String replaceAll String regex  String replacement    return Pattern compile regex  matcher this  replaceAll replacement           String   replaceall    Matcher  replaceall Matcher  replaceall    java public String replaceAll String replacement    reset    boolean result   find     result    StringBuffer sb   new StringBuffer      appendReplacement sb  replacement   result   find       result   appendTail sb   return sb toString      return text toString                                        replacement                                 matcher        matcher      appendReplacement              appendReplacement              groupname                 java public Matcher appendReplacement StringBuffer sb  String replacement       no match  return error  first 9   throw new IllegalArgumentException   Illegal group reference    cursor       Capture largest legal group string boolean done   false    done     cursor    replacement length      break    int nextDigit   replacement charAt cursor     0     nextDigit 9        not number break    int newRefNum    refNum   10    nextDigit   groupCount   cat     Matcher m   p matcher  one cat two cats yard    StringBuffer sb   new StringBuffer     m find      m appendReplacement sb     mycat  little   mycat       m appendTail sb   System out println sb toString",
+        "objectID": "posts/2016_05_28_javaRegexExchange",
+        "subtitle": "",
+        "summary": "",
+        "date": "2016-05-28T13:47:18.000Z",
+        "author": "王菁浩",
+        "tags": [
+            "java"
+        ],
+        "categories": [
+            "技术"
+        ]
+    },
+    {
+        "title": "Clang 编译",
+        "uri": "posts/2016_06_15_clangBuild",
+        "content": "C            LLVM Clang            1                           RPG            QQ      Windows                        Visual Studio             MinGW                                          MinGW W64        CSDN                       3       tdm gcc                   Windows 7 64      MinGW W64 builds 4 2 0 CMake CMake 3 5 2      MinGW             PATH     CMake   ZIP       PATH                    2  LLVM     llvm          llvm   http   llvm org releases 3 8 0 llvm 3 8 0 src tar xz CLang   http   llvm org releases 3 8 0 cfe 3 8 0 src tar xz 3         cmd cd           mkdir build     build                               shell E  SourceCode llvm llvm 3 8 0 src mkdir build E  SourceCode llvm llvm 3 8 0 src cd build E  SourceCode llvm llvm 3 8 0 src build     CMake     shell E  SourceCode llvm llvm 3 8 0 src build cmake  G  MinGW Makefiles   DCMAKEBUILDTYPE Release  DCMAKEINSTALLPREFIX D  LLVM  DCMAKEMAKEPROGRAM mingw32 make exe                                 G         MinGW                     CMAKEBUILDTYPE         Debug Release MinSizeRel  CMAKEINSTALLPREFIX install                            CMAKEMAKEPROGRAM                        CMake                          LLVM             make           MinGW   mingw32 make                           install       CMake          shell E  SourceCode llvm llvm 3 8 0 src build mingw32 make      E  SourceCode llvm llvm 3 8 0 src build mingw32 make install       Clang      LLVM                 shell E  SourceCode llvm cfe 3 8 0 src cmake  G  MinGW Makefiles   DCMAKEBUILDTYPE Release  DCMAKEINSTALLPREFIX D  LLVM    E  SourceCode llvm cfe 3 8 0 src build mingw32 make E  SourceCode llvm cfe 3 8 0 src build mingw32 make install                   Path   4       cmd    clang  v        shell C  Users wjh clang  v clang version 3 8 0  tags RELEASE_380 final  Target  x86_64 w64 windows gnu Thread model  posix InstalledDir  D  LLVM bin           test cpp   cpp  include using namespace std  int main     cout clang    o test exe test cpp       shell E  test test exe Hello World    5          libcxx libcxxabi Windows                                    Mac       Linux",
+        "objectID": "posts/2016_06_15_clangBuild",
+        "subtitle": "",
+        "summary": "",
+        "date": "2016-06-15T14:00:22.000Z",
+        "author": "王菁浩",
+        "tags": [
+            "clang"
+        ],
+        "categories": [
+            "技术"
+        ]
+    },
+    {
+        "title": "Markdown导出html时rowspan与colspan的处理",
+        "uri": "posts/2016_07_02_markdownRowspan",
+        "content": "MarkDwon     table     table          table          html                            sublime OmniMarkupPreviewer    rowspan colspan  1             sublime OmniMarkupPreviewer        html OmniMarkupPreviewer            md    javascript     js html  dom        markdown    html           js                        md    html  2       sublime OmniMarkupPreviewer                          2 1    js       html td            rowspan colspan                   rowspan n       colspan n       deltd   td rowspan colspan                         javascript document onreadystatechange   function      if document readyState   complete     var rowspanpat      rowspan   d      g  var deltdpat      deltd   g  var colspanpat      colspan   d      g  var tds   document getElementsByTagName  td    for var i  0  i document onreadystatechange   function      if document readyState   complete     var rowspanpat      rowspan   d      g  var deltdpat      deltd   g  var colspanpat      colspan   d      g  var tds   document getElementsByTagName  td    for var i 0 i",
+        "objectID": "posts/2016_07_02_markdownRowspan",
+        "subtitle": "",
+        "summary": "",
+        "date": "2016-07-02T14:28:09.000Z",
+        "draft": false,
+        "author": "王菁浩",
+        "featured": false,
+        "math": false,
+        "tags": [
+            "markdown"
+        ],
+        "categories": [
+            "技术"
+        ]
+    },
+    {
+        "title": "Scrapy 爬虫框架初试",
+        "uri": "posts/2017_03_10_scrapyTest",
+        "content": "python                       api                                          1  Scrapy   1 1         windows     scrapy        scrapy    twisted  twisted                                     linux                                                                                    CentOS Linux release 7 1 1503     python   Python 2 7 5   1 2       1 2 1    pip   centos  python    pip          pip   bash wget https   bootstrap pypa io get pip py python get pip py           V      bash pip  V   1 2 2                                bash yum install openssl libs openssl devel openssl gcc   1 2 3    scrapy   bash pip install scrapy                   1 2 4             twisted                                          16 4 1     bash pip install twisted  16 4 1   2           2 1         bash scrapy startproject spider             spider             2 2                 ArcGIS api                2 3         2 3 1     item    spider spider items py    item             2 3 2           spider spiders                 github 2 3 3                spider spider pipelines py   python class ArcgiswpfPipeline object   def open_spider self  spider   self file   open  items line json    wb   def process_item self  item  spider   line   json dumps dict item       n  self file write bytes line  encoding    utf8    return item def spider_closed self  spider   self file close                     json       2 3 4                     def parse self  response               xpath regex                              set                       xpath                             m xpath  string      extract   0     3         ArcGIS                       scrapy                spider spider middlewares py               python def process_request self  request  spider   Set location proxy request meta  proxy      http   192 168 1 6 8087        spider spider setting py    DOWNLOADER_MIDDLEWARES                4         bash scrapy crawl arcgis_wpf        1    json    class_name    SuggestParameters    class_props        type    Public method    name    SuggestParameters    desc    Creates new SuggestParameters instance         type    Public property    name    Categories    desc    Gets mutable list categories addresses returned         type    Public property    name    CountryCode    desc    Gets sets value representing country  Providing value increases geocoding speed  Acceptable values include full country name  ISO 3166 1 2 digit country code  ISO 3166 1 3 digit country code  list supported countries codes available here         type    Public property    name    MaxResults    desc    Gets sets maximum number returned suggestions         type    Public property    name    PreferredSearchLocation    desc    Gets sets preferred search location         type    Public property    name    SearchArea    desc    Gets sets geographic area searching locations will limited to         class_desc    A class representing parameters geocoding suggestion operation     namespace    Esri ArcGISRuntime Tasks Geocoding    class_type    class",
+        "objectID": "posts/2017_03_10_scrapyTest",
+        "subtitle": "",
+        "date": "2017-03-09T23:50:56.000Z",
+        "author": "王菁浩",
+        "tags": [
+            "爬虫"
+        ],
+        "categories": [
+            "技术"
+        ]
+    },
+    {
+        "title": "Windows系统上spark环境搭建",
+        "uri": "posts/2017-08-13-sparkOnWindows",
+        "content": "window   spark                                                  win10       12G                                                      hdfs                winutils spark    hadoop      github  winutils     winutils            4 7M            winutils         hadoop 2 7 1                                    spark                   windows    HADOOP_HOME                     spark           spark     cmd cd spark bin     spark shell   spark                      Scala        scala                                                                  scala package indi wjh spark testenv import org apache spark SparkConf import org apache spark sql  SaveMode  SparkSession  object SparkMain   def main args  Array String    Unit     val spark   SparkSession builder   config new SparkConf    getOrCreate   import spark implicits _ val wcount   spark read text  D   txt  A Brief History Time txt    as String  flatMap  split     s    p P      filter  trim         groupByKey _ toLowerCase  count   val wordOrder   wcount orderBy wcount wcount schema fields 1  name  desc       1    wordOrder repartition 1  write mode SaveMode Overwrite   csv  D   txt  count csv   wordOrder show   spark stop              run bat   bash D  services spark 2 0 2 bin hadoop2 7 bin spark submit2     master local        name wcount     class indi wjh spark testenv SparkMain   testenv 1 0 SNAPSHOT jar          8119     spark windows  bug",
+        "objectID": "posts/2017-08-13-sparkOnWindows",
+        "subtitle": "",
+        "date": "2017-08-13T00:26:45.000Z",
+        "author": "王菁浩",
+        "tags": [
+            "spark"
+        ],
+        "categories": [
+            "技术"
+        ]
+    },
+    {
+        "title": "Jetty安装脚本",
+        "uri": "posts/2017-08-16-jettyInstaller",
+        "content": "jetty             jetty             jetty                jetty                                         centos   ubuntu                                                       bash    bin bash echo    jetty            installPath  opt apps jetty      JETTY_BASE  opt jettyWebs USER jetty GROUP jetty       tar gz  JettyPath jetty distribution 9 4 6 v20170531 tar gz      function exitInfo     echo        1  exit 0   function createUser     egrep    GROUP   etc group     dev null       ne 0   echo        GROUP  groupadd  GROUP fi egrep    USER   etc passwd     dev null       ne 0   echo       USER  useradd  g  GROUP  USER fi   function deleteFolder        d   1     rm  rf   1  echo          1  fi   function createFolder          d   1     mkdir  p   1  echo          1  fi   jetty     function createJettyDic     createFolder   installPath  createFolder   JETTY_BASE    function unzipJetty     jettyFile   JettyPath      jettyFileName   jettyFile   tar gz   tar  xzvf   JettyPath   C   installPath  1  dev null 2  1 echo       installPath  lnsPath  installPath current rm  f  lnsPath ln  s   installPath  jettyFileName    lnsPath       f   JETTY_BASE start ini     cp   lnsPath  start ini   JETTY_BASE  fi createFolder   JETTY_BASE  temp createFolder   JETTY_BASE  work createFolder  var run jetty cp   lnsPath  demo base     JETTY_BASE  chown  R   USER    GROUP    installPath  chown  R   USER    GROUP    JETTY_BASE  chown  R   USER    GROUP   var run jetty usermod  d  JETTY_BASE  USER cp  f   lnsPath  bin jetty sh  etc init d jetty chmod 700  etc init d jetty echo  e  JETTYHOME  lnsPath nJETTYBASE  JETTYBASE nTMPDIR  JETTYBASE temp nJETTY_USER  USER     etc default jetty centos           chkconfig jetty        whoami       root    exitInfo    root     sudo     fi       createUser       createJettyDic   jetty unzipJetty",
+        "objectID": "posts/2017-08-16-jettyInstaller",
+        "subtitle": "",
+        "date": "2017-08-16T00:42:44.000Z",
+        "authors": [
+            "王菁浩"
+        ],
+        "tags": [
+            "java"
+        ],
+        "categories": [
+            "技术"
+        ]
+    },
+    {
+        "title": "Spark中多个Dataset进行union操作的方法",
+        "uri": "posts/2018-01-12-sparkUnion",
+        "content": "spark   Dataset  union                                      1                                                                  win10        spark       v2 0 2     IDE   IDEA                                                2          gradle             groovy group  pers wjh spark units  version  1 0 SNAPSHOT  apply plugin   scala  sourceCompatibility   1 8 repositories   maven  url  http   maven aliyun com nexus content groups public     dependencies   testCompile group   junit   name   junit   version   4 12  compile  org apache spark spark core_2 11 2 0 2  compile  org apache spark spark sql_2 11 2 0 2      3    Dataset union   3 1    union       union Dataset            scala val dsAll   ds1 union ds2  union ds3    3 2    union   Dataset   union            scala       union    param dsArray  union     param index     return    private def recurUnionGroup dsArray  Seq Dataset Row    index Int  Dataset Row    index   dsArray length 1  dsArray index  union recurUnionGroup dsArray index 1   else dsArray last                     union                union           3 3    Union  union         spark        Dataset  union                         scala       Union    param dsArray  return    def unionGroup dsArray  Seq Dataset Row    Dataset Row    new Dataset spark Union dsArray map _ queryExecution logical   RowEncoder dsArray head schema           Dataset     union        spark 2 0 2 sql core src main scala org apache spark sql Dataset scala   1459     scala def union other  Dataset T    Dataset T    withSetOperator      breaks caching  it s usually ok addresses specific use case     using union union files partitions  CombineUnions Union logicalPlan  other logicalPlan            Union     Union            Dataset union   scala    Factory constructing new Union nodes    object Union   def apply left  LogicalPlan  right  LogicalPlan   Union     Union  left    right    Nil      case class Union children  Seq LogicalPlan   extends LogicalPlan   override def maxRows  Option Long       children exists _ maxRows isEmpty     None   else   Some children flatMap _ maxRows  sum                                        LogicalPlan    Dataset     Dataset union       dataset     LogicalPlan   LogicalPlan Dataset                queryExecution   Union        LogicalPlan     LogicalPlan      Dataset      union    Dataset  4                     scala  Test def testRecurUnion   Unit   println    union      val dsList   Seq ds1 ds2 ds3  val multiUnion   MultiUnion spark  multiUnion recurUnionGroup dsList  show      Test def testBase   Unit   println    union      val dsAll   ds1 union ds2  union ds3  dsAll show      Test def testUnion   Unit   println    union       val dsList   Seq ds1 ds2 ds3  val multiUnion   MultiUnion spark  multiUnion unionGroup dsList  show               bash spark    union                  id value                1  a    2  b    3  c    4  d    5  e    6  f                union                  id value                1  a    2  b    3  c    4  d    5  e    6  f                union                  id value                1  a    2  b    3  c    4  d    5  e    6  f                5         spark  lazy                            Union",
+        "objectID": "posts/2018-01-12-sparkUnion",
+        "subtitle": "",
+        "date": "2018-01-12T00:48:41.000Z",
+        "author": "王菁浩",
+        "tags": [
+            "spark"
+        ],
+        "categories": [
+            "技术"
+        ],
+        "toc": true
+    },
+    {
+        "title": "Jackson自动对类型格式化",
+        "uri": "posts/2018-01-13-jacksonFormat",
+        "content": "Jackson                                    postgresql       json         jsonb json     mybatis           json      PGData                           PGData   java       Postgresql    jsonb    public class PGData   private String type  private Object value  public String getType     return type    public void setType String type    this type   type    public Object getValue     return value    public void setValue Object value    this value   value                             java import com fasterxml jackson core JsonGenerator  import com fasterxml jackson core JsonProcessingException  import com fasterxml jackson databind    import com fasterxml jackson databind ser BeanPropertyWriter  import com fasterxml jackson databind ser BeanSerializerModifier  import java io IOException  import java text SimpleDateFormat  import java util Date  import java util List  public class JacksonModifier           pgdata     private static final ObjectMapper objectMapper   new ObjectMapper                    private static final ObjectMapper objectMapper1   new ObjectMapper    static           objectMapper setDateFormat new SimpleDateFormat  yyyy MM dd hh mm ss     setSerializerFactory objectMapper getSerializerFactory   withSerializerModifier getJsobModifier                       return    private static BeanSerializerModifier getJsobModifier     return new BeanSerializerModifier      Override public List changeProperties SerializationConfig config  BeanDescription beanDesc  List beanProperties     BeanPropertyWriter w   beanProperties     w getType   getRawClass   equals PGData class     w assignSerializer new JsonSerializer      Override public void serialize Object value  JsonGenerator gen  SerializerProvider serializers  throws IOException   gen writeObject   PGData  value  getValue               return beanProperties         public static void main String   args    try   TestData td   new TestData    td setDt new Date     PGData pgdt   new PGData    pgdt setType  jsonb    pgdt setValue  value    td setPgData pgdt   System out println         System out println objectMapper writeValueAsString td    System out println          System out println objectMapper1 writeValueAsString td      catch  JsonProcessingException e    e printStackTrace               scala         getJsobModifier           getJsobModifier           type      value                 log       dt   2018 01 13 08 04 07   pgData   value          dt  1515845047360  pgData    type   jsonb   value   value                 PGData",
+        "objectID": "posts/2018-01-13-jacksonFormat",
+        "subtitle": "",
+        "date": "2018-01-13T01:03:03.000Z",
+        "author": "王菁浩",
+        "tags": [
+            "java"
+        ],
+        "categories": [
+            "技术"
+        ],
+        "toc": true
+    },
+    {
+        "title": "Docker在win10 home版下安装",
+        "uri": "posts/2018-01-20-dockerOnWin10",
+        "content": "win10 home                     win10 home    docker               home    home       docker windows           1       git virtualbox       toolbox             git virtualbox          1 1    git docker     git     1 2     virtualbox   win10 home    Hyper       virtualbox virtualbox     1 3     dockertoolbox   docker         docker windows       windows       Hyper home      win10   windows home       docker toolbox   toolbox                   git virtualbox         2     2 1                           git        c                        2 2         C  Users        docker machine machines default config json    RegistryMirror      json  RegistryMirror      https   docker mirrors ustc edu cn            2 3  docker                                                           docker                  docker             cmd                                                                                                                   DOCKER_HOST   tcp   192 168 99 100 2376     DOCKERCERTPATH   C  Users          docker machine machines default     DOCKERTLSVERIFY   1     DOCKERMACHINENAME   default      cmd powershell         3  VSCode  Docker VSCode                  3 1                       docker         3 2    dockerfile               dockerfile    F1     docker add docker files workspace                        helloworld  other         ip      8000    Dockerfile        log hello world LABEL Name helloworld Version 0 0 1    dockerfile      buildimage helloword               image    run interactive            log PS D  Docker helloworld  docker run   rm  it helloworld latest Hello Docker  message shows installation appears working correctly  generate message  Docker took following steps  Docker client contacted Docker daemon  Docker daemon pulled  hello world  image Docker Hub   amd64  Docker daemon created new container image runs executable produces output currently reading  Docker daemon streamed output Docker client  sent terminal  try something ambitious  run Ubuntu container with    docker run  it ubuntu bash Share images  automate workflows  free Docker ID  https   cloud docker com  examples ideas  visit  https   docs docker com engine userguide  PS D  Docker helloworld",
+        "objectID": "posts/2018-01-20-dockerOnWin10",
+        "subtitle": "",
+        "date": "2018-01-20T01:07:05.000Z",
+        "authors": [
+            "王菁浩"
+        ],
+        "tags": [
+            "docker"
+        ],
+        "categories": [
+            "技术"
+        ],
+        "toc": true
+    },
+    {
+        "title": "18年5月5日游北京植物园",
+        "uri": "posts/2018-05-05-tourism-bjzwy",
+        "content": "3M",
+        "objectID": "posts/2018-05-05-tourism-bjzwy",
+        "subtitle": "",
+        "date": "2018-05-05T11:38:48.000Z",
+        "author": "王菁浩",
+        "tags": [
+            "生活"
+        ],
+        "categories": [
+            "旅行"
+        ],
+        "resources": [
+            {
+                "name": "featured-image",
+                "src": "IMG_0194.jpg"
+            },
+            {
+                "name": "featuredImagePreview",
+                "src": "IMG_0194.jpg"
+            }
+        ]
+    },
+    {
+        "title": "scala try with resource 方法",
+        "uri": "posts/2018-08-09-scalaTryWithSource",
+        "content": "scala         java 7     try    catch                         PS         shapeless                               1                              close              2                                                                 scala package per wjh utils import shapeless _ import ops hlist _ import ops nat _ import scala util control NonFatal import scala util  Failure  Try  object TryWith   def apply C C  f  C    R   Try R    Try resource  flatMap resourceInstance      try   val returnValue   f resourceInstance  Try resourceInstance close    map _    returnValue    catch   case NonFatal exceptionInFunction     try   resourceInstance close   Failure exceptionInFunction    catch   case NonFatal exceptionInClose     exceptionInFunction addSuppressed exceptionInClose  Failure exceptionInFunction         def apply C  Len C  f  C    R   implicit gen  Generic Aux C  L   con  ToList L  AutoCloseable   length  Length Aux L  Len   gt  GT Len  nat _1     Try R      Try resources  flatMap resourceInstance    try   val returnValue   f resources  Try gen to resourceInstance  toList reverse foreach _ close      map _    returnValue    catch   case NonFatal exceptionInFunction     try   gen to resourceInstance  toList reverse foreach _ close    Failure exceptionInFunction    catch   case NonFatal exceptionInClose     exceptionInFunction addSuppressed exceptionInClose  Failure exceptionInFunction                          scala package per wjh utils test import java io Closeable import org scalatest FunSuite import per wjh utils TryWith import scala util  Failure  Success  class TryTest extends FunSuite   case class Closeable1   extends Closeable   def info    Unit     println  print 1     override def close    Unit     println  close 1        case class Closeable2   extends Closeable   def info    Unit     throw new Exception  error 2   println  print 2     override def close    Unit     println  close 2        test    Try     TryWith Closeable1    Closeable2      case  a  b     a info   b info    success    match   case Success value     println value  case Failure e     println e getMessage    println                              test    Try2     TryWith Closeable2         a info    success    match   case Success value     println value  case Failure e     println e getMessage    println                                         log print 1 close 2 close 1 error 2 close 2 error 2   Closeable     AutoCloseable          AutoCloseable            2",
+        "objectID": "posts/2018-08-09-scalaTryWithSource",
+        "subtitle": "",
+        "date": "2018-08-09T14:05:10.000Z",
+        "author": "王菁浩",
+        "tags": [
+            "scala"
+        ],
+        "categories": [
+            "技术"
+        ],
+        "toc": true
+    },
+    {
+        "title": "2018年8月草原自驾游",
+        "uri": "posts/2018-08-18-tourism-chifeng",
+        "content": "8                                              1           2018 8 14   2018 8 18  5         2     2 1   1  8 14                                      2 2   2  8 15                                                                                                                                                                        2 3   3  8 16                                                                                                                                                                                        2 4   4  8 17                                                                                      3                                        2 5   5  8 18                                                xp",
+        "objectID": "posts/2018-08-18-tourism-chifeng",
+        "subtitle": "",
+        "date": "2018-08-15T13:27:57.000Z",
+        "author": "王菁浩",
+        "tags": [
+            "生活"
+        ],
+        "categories": [
+            "旅行"
+        ],
+        "resources": [
+            {
+                "name": "featured-image",
+                "src": "IMG_0114.jpg"
+            },
+            {
+                "name": "featuredImagePreview",
+                "src": "IMG_0265.jpg"
+            }
+        ],
+        "toc": true
+    },
+    {
+        "title": "2018年十一西安旅游",
+        "uri": "posts/2018-10-14-tourism-xian",
+        "content": "1           2018 9 30   2018 10 7  7                  2     2 1                                           2 2                                                                                                                                                                                                                        2 3                                                                                                                                                                   30   100                                                                                           10                            2 4                                                                                 24                                             2 5                                                                                                                                                                                                                                                                                                                                                                                                                                     10                        2 6                                                                                                                                                               2 7                                    7                      4                              9                  30   100                                                  6                                 1 3                           4                                               2 8                                 3",
+        "objectID": "posts/2018-10-14-tourism-xian",
+        "subtitle": "",
+        "summary": "",
+        "date": "2018-10-14T10:44:48.000Z",
+        "author": "王菁浩",
+        "tags": [
+            "生活"
+        ],
+        "categories": [
+            "旅行"
+        ],
+        "resources": [
+            {
+                "name": "featured-image",
+                "src": "IMG_0486.jpg"
+            },
+            {
+                "name": "featuredImagePreview",
+                "src": "IMG_0486.jpg"
+            }
+        ],
+        "toc": true
+    },
+    {
+        "title": "Windows上用VSCode远程Docker",
+        "uri": "posts/2019-01-06-vscode-docker-windows",
+        "content": "Windows   docker                         VSCode  docker                           1       Windows       docker   2375      docker     2375           docker             http    IP  2375 info                  2  docker        docker      docker ce                    2 1                  v18 09                   docker             docker      root         root cli 18 09 0          2 2           cli 18 09 0            bash  f docker Makefile binary windows   docker                                                             scripts xxx             scripts       o rwx           build        docker windows amd64       windows       docker exe 2 3               docker exe                    docker exes        ersy 3  Windos   3 1  docker              DOCKER_HOST      tcp    IP  2375 IP        docker exe       path   cmd    docker info         server             3 2    VSCode     docker   3 3       dockerfile  VSCode                Shift   Ctrl   P   add docker file                      buildimage docker      VSCode           VSCode  Docker       DOCKER_HOST               tcp      ip",
+        "objectID": "posts/2019-01-06-vscode-docker-windows",
+        "subtitle": "",
+        "date": "2019-01-06T01:48:53.000Z",
+        "author": "王菁浩",
+        "tags": [
+            "docker"
+        ],
+        "categories": [
+            "技术"
+        ],
+        "toc": true
+    },
+    {
+        "title": "spark源码学习（一） —— Executor",
+        "uri": "posts/2019-03-23-learning-spark-1",
+        "content": "spark        app            XXX                                          1       spark   2 4      2  Executor    executor spark         driver            org apache spark executor    Executor         Executor      java     Spark executor  backed threadpool run tasks    used Mesos  YARN  standalone scheduler  internal RPC interface used communication driver  except case Mesos fine grained mode              executor           task       mesos yarn standalone     RPC   drive              mesos       fine grained                       3  Executor    3 1  object  scala private spark  object Executor      reserved internal use components need read task properties    task fully deserialized  When possible  TaskContext getLocalProperty call    used instead  val taskDeserializationProps  ThreadLocal Properties    new ThreadLocal Properties                               private spark         spark       3 2  class 3 2 1        scala private spark  class Executor  executorId  String  executorHostname  String  env  SparkEnv  userClassPath  Seq URL    Nil  isLocal  Boolean   false  uncaughtExceptionHandler  UncaughtExceptionHandler   new SparkUncaughtExceptionHandler  extends Logging                         spark        3 2 2  Executor        2      3 2 2 1  TaskRunner  scala class TaskRunner  execBackend  ExecutorBackend  private val taskDescription  TaskDescription  extends Runnable                   task 3 2 2 2  TaskReaper  scala private class TaskReaper  taskRunner  TaskRunner  val interruptThread  Boolean  val reason  String  extends Runnable                  task                spark task reaper enabled true 3 3       3 3 1         scala private val threadPool                     private val taskReaperPool   ThreadUtils newDaemonCachedThreadPool  Task reaper            threadPool   task      taskReaperPool           task   scala private val executorPlugins  Seq ExecutorPlugin                    spark executor plugins                                scala private val heartbeater   ThreadUtils newDaemonSingleThreadScheduledExecutor  driver heartbeater   private val heartbeatReceiverRef   RpcUtils makeDriverRef HeartbeatReceiver ENDPOINT_NAME  conf  env rpcEnv  private val HEARTBEATMAXFAILURES   conf getInt  spark executor heartbeat maxFailures   60  startDriverHeartbeater            driver    3 3 2    Task    scala def launchTask context  ExecutorBackend  taskDescription  TaskDescription   Unit     val tr   new TaskRunner context  taskDescription  runningTasks put taskDescription taskId  tr  threadPool execute tr            task 3 4  TaskRunner  task           run                  scala val value   Utils tryWithSafeFinally   val res   task run  taskAttemptId   taskId  attemptNumber   taskDescription attemptNumber  metricsSystem   env metricsSystem  threwException   false res     val releasedLocks   env blockManager releaseAllLocksForTask taskId  val freedMemory   taskMemoryManager cleanUpAllAllocatedMemory    freedMemory   0     threwException    val errMsg   s Managed memory leak detected  size    freedMemory bytes  TID    taskId   conf getBoolean  spark unsafe exceptionOnMemoryLeak   false     throw new SparkException errMsg    else   logWarning errMsg                           2   task                    run                            scala val serializedResult  ByteBuffer      maxResultSize   0    resultSize   maxResultSize    logWarning s Finished  taskName  TID  taskId   Result larger maxResultSize     s    Utils bytesToString resultSize       Utils bytesToString maxResultSize         s dropping it    ser serialize new IndirectTaskResultAny  resultSize     else  resultSize   maxDirectResultSize    val blockId   TaskResultBlockId taskId  env blockManager putBytes  blockId  new ChunkedByteBuffer serializedDirectResult duplicate     StorageLevel MEMORYANDDISK_SER  logInfo  s Finished  taskName  TID  taskId    resultSize bytes result sent via BlockManager    ser serialize new IndirectTaskResultAny    else   logInfo s Finished  taskName  TID  taskId    resultSize bytes result sent driver   serializedDirectResult                    driver 4",
+        "objectID": "posts/2019-03-23-learning-spark-1",
+        "subtitle": "",
+        "date": "2019-03-23T10:12:54.000Z",
+        "author": "王菁浩",
+        "toc": true,
+        "tags": [
+            "spark"
+        ],
+        "categories": [
+            "技术"
+        ]
+    },
+    {
+        "title": "更换硅脂纪录",
+        "uri": "posts/2019-06-02-silicone_grease_replace",
+        "content": "1           DELL Inspiron 7559                                                                           2                                        D                                                                                           C                                                                              2                         c      D                 C                          C                                                                CMOS                                                      CPU     3                                                                            4                                                                                      CMOS",
+        "objectID": "posts/2019-06-02-silicone_grease_replace",
+        "subtitle": "戴尔 Inspiron 7559",
+        "summary": "",
+        "date": "2019-06-02T05:07:18.000Z",
+        "author": "王菁浩",
+        "tags": [
+            "pc"
+        ],
+        "categories": [
+            "技术"
+        ],
+        "toc": true
+    },
+    {
+        "title": "对 Gitlab flow的理解及在IDEA上的使用",
+        "uri": "posts/2019-06-15-gitlabflow_and_idea",
+        "content": "Gitlab flow                       Gitlab flow                                      master              master                                                                                                                                                                         A                         add_a   add_a      A   commit push gitlab        review           master    Gitlab   add_a                         v1             v1      v1       cherry pick         commit   v1           v1     IDEA        IDEA        2018 3      Git Commit Template         commit   GitLab           3    root devs maindev   maindev    group   group      gitlabflow         devs        readme              v1 0        IDEA     idea       clone                       Git  master    New Branch      add_a        README md               gitignore               commit                                                        angular commit template commit        b bug    master       fixbbug      Gitlab         2      push   gitlab   gitlab                                        merge  merge                     merge                                IDEA   idea      master  pull          master  pull                       v1 0        a      b  bug             IDEA    v1 0   clone           v1 0    Fetch              chechout   v1 0     git         fix    b        Cherry Pick                      v1 0           Gitlab flow                     svn gitflow          master",
+        "objectID": "posts/2019-06-15-gitlabflow_and_idea",
+        "subtitle": "",
+        "summary": "",
+        "date": "2019-06-15T11:35:39.000Z",
+        "author": "王菁浩",
+        "tags": [
+            "gitlab"
+        ],
+        "categories": [
+            "技术"
+        ]
+    },
+    {
+        "title": "在windows上使用dockermachine创建docker",
+        "uri": "posts/2019-08-10-docker-machine-on-windows",
+        "content": "windows                                                docker machine                      Windows    Oracle VM VirtualBox Git LInux                          Docker machine                git bash     bash         d   HOME bin      mkdir  p   HOME bin   fi      curl  L https   github com docker machine releases download v0 16 2 docker machine Windows x86_64 exe     HOME bin docker machine exe       chmod  x   HOME bin docker machine exe          HOME bin                         bash docker machine   version   Docker         docker machine     docker             docker                   HOME bin       docker exe                             https   github com StefanScherer docker cli builder            makefile     linux   git clone    checkout                          bash  f docker Makefile cross               build    build       docker docker linux amd64 docker windows amd64         docker windows amd64  windows     docker        docker windows amd64      HOME bin       docker exe    docker   version                          MACHINESTORAGEPATH             Docker machine           git bash     virtualbox     bash docker machine create   driver virtualbox default                      docker                bash docker machine env      default                         git bash                docker                                      git bash   powershell          docker images        images",
+        "objectID": "posts/2019-08-10-docker-machine-on-windows",
+        "subtitle": "",
+        "summary": "",
+        "author": "王菁浩",
+        "tags": [
+            "docker"
+        ],
+        "categories": [
+            "技术"
+        ],
+        "date": "2019-08-21T13:02:05.000Z",
+        "draft": false,
+        "toc": true
+    },
+    {
+        "title": "flatMap 在 Scala(Spark)/Java8 中的使用",
+        "uri": "posts/2020-04-30-flatMap",
+        "content": "flatMap                scala                    Scala Spark Dataset  Java8 lambda   flatMap    1    Scala      flatMap  scala          GenTraversableOnce         scala def flatMapB  That  implicit bf  CanBuildFrom Repr  B  That        def builder   bf repr     extracted keep method size 35 bytes  so JIT inlined val b   builder  x if v   2    0   Some v   else   None     result be Seq 2 4 6 8         1 2     flatMap                         scala class FlatMapTest extends AnyFlatSpec Matchers      flatMap    val result   Seq  a b   c d   flatMap _ split         result be Seq  a    b    c    d          2   spark Dataset        Optional       spark   Dataset   flatmap          spark  flatMap         TraversableOnce    GenTraversableOnce                    scala        Experimental     Scala specific  Returns new Dataset first applying function elements Dataset  flattening results     group typedrel  since 1 6 0     Experimental  InterfaceStability Evolving def flatMapU   Encoder   Dataset U    mapPartitions _ flatMap func             scala import org apache spark sql SparkSession import org junit runner RunWith import org scalatest flatspec AnyFlatSpec import org scalatest matchers should Matchers import org scalatestplus junit JUnitRunner case class Demo name  String  inUse  Boolean   RunWith classOf JUnitRunner   class FlatMapTest extends AnyFlatSpec Matchers   private val spark   SparkSession builder   master  local   getOrCreate   import spark implicits _ private val ds   spark createDataset Seq  Demo  a b   inUse   true   Demo  c d   inUse   false            val result   ds flatMap d    if d inUse   Some d   else  None     result collect   head  Demo  a b   inUse   true        flatMap    ds flatMap  d    d name split         collect   be Seq  a    b    c    d          3    Java8          Java8            Option     flatMap  scala Option    flatMap       3 1  steam    flatMap      java package java util stream  Stream flatMap Function  mapper                       java  Test public void testStream    List  demo   Arrays asList  Arrays asList  a   b    Arrays asList  c   d     List result   demo stream    flatMap Collection  stream   collect Collectors toList     result forEach System out  print       3 2  Optional    flatMap      java package java util  public Optional flatMap Function  mapper    Objects requireNonNull mapper     isPresent    return empty    else   return Objects requireNonNull mapper apply value                            java  Test public void testOptional    Optional demo1   Optional of  demo    Optional result1   demo1 flatMap d    Optional of d     not null     Assert assertEquals result1 orElse       demo not null    Optional demo2   Optional empty    Optional result2   demo2 flatMap d    Optional of d     not null     Assert assertEquals result2 orElse                         4",
+        "objectID": "posts/2020-04-30-flatMap",
+        "subtitle": "",
+        "summary": "",
+        "date": "2020-04-30T11:22:37.000Z",
+        "toc": true,
+        "author": "王菁浩",
+        "tags": [
+            "spark"
+        ],
+        "categories": [
+            "技术"
+        ]
+    },
+    {
+        "title": "树莓派部署免费公网站点",
+        "uri": "posts/2020-07-08-Raspberry-Pi-Website",
+        "content": "nginx light           apache tomcat     nginx sudo apt install nginx light         sudo systemctl enable nginx sudo systemctl restart nginx               sudo mkdir  p  var www html demo sudo sh  c  cat    var www html demo index html hello site EOF  def flatMapB  That  implicit bf  CanBuildFrom Repr  B  That        def builder   bf repr     extracted keep method size 35 bytes  so JIT inlined val b   builder  x   demo   Arrays asList  Arrays asList  a   b    Arrays asList  c   d     List result   demo stream    flatMap Collection  stream   collect Collectors toList     result forEach System out  print              http       IP    80 demo         hello site                 freenom                                         google             google               3        12                                                                                                                            ngrok    sunny ngrok      ngrok   frp             ngrok                            ngrok                                                                                                           freenom     DNS          www          DNS                            CNAME   free idcfengye com                                                DNS    freenom        NAME                        www                     www                                  DNS                           http   www         tk demo       hello site                                      DNS    DNSpod                   freenom DNS         cloudflare          https",
+        "objectID": "posts/2020-07-08-Raspberry-Pi-Website",
+        "excerpt": "自定义域名 + 内网穿透 实现内网部署网址",
+        "tags": [
+            "树莓派",
+            "网络",
+            "内网穿透"
+        ],
+        "categories": [
+            "技术"
+        ],
+        "date": "2020-07-08T11:19:21.000Z",
+        "toc": true,
+        "headimg": "/gallery/2020-07-08-Raspberry-Pi-Website.jpg"
+    },
+    {
+        "title": "2020年10月山西自驾游",
+        "uri": "posts/2020-11-08-tourism-shanxi",
+        "content": "sectnums   icons  font                         10 5    10             2020 10 05   2020 10 9  5              10 5                                                                              https   baike baidu com item  E6 99 8B E7 A5 A0 128888                                                 TIP                                                             image  IMG_2513 jpg title         image  IMG_2554 jpg title        image  IMG_2559 jpg title        image  IMG_2562 jpg title        image  IMG_2571 jpg title                                                         10 6                                          https   baike baidu com item  E6 99 8B E9 98 B3 E6 B9 96                                                                                                                                                                                                                                                                                                            https   baike baidu com item  E6 9F B3 E5 B7 B7 E8 A1 97 E9 81 93 4312467                                             https   baike baidu com item  E5 A4 AA E5 8E 9F E6 96 87 E7 80 9B E5 85 AC E5 9B AD                                                                                                              image  IMG_2605 jpg title        image  IMG_2609 jpg title        10 7                              https   baike baidu com item  E5 A3 B6 E5 8F A3 E7 80 91 E5 B8 83 985                                       TIP                                                                                                                 video  MVI_2757 mp4 title           video  MVI_2745 mp4 title         image  IMG_2660 jpg title         image  IMG_2669 jpg title         image  IMG_2709 jpg title                                                                                                                                    10 8                         10                                              image  IMG_2819 jpg title       image  IMG_2829 jpg title       image  IMG_2948 jpg title       image  IMG_2968 jpg title                                                                              10 9                                                                                        image  IMG_3001 jpg title                                                                                    image  IMG_3094 jpg title            https   baike baidu com item  E5 9E 82 E8 8A B1 E6 9F B1 16801661                image  IMG_3099 jpg title                                                                                                                                                                                                         image  IMG_3226 jpg title                            image  IMG_3253 jpg title           image  IMG_3299 jpg title       image  IMG_3321 jpg title                             10 10",
+        "objectID": "posts/2020-11-08-tourism-shanxi",
+        "excerpt": "由于疫情，今年没有去太远的地方，为了打个时间差，10月5日出发",
+        "date": "2020-11-08T03:01:48.000Z",
+        "author": "王菁浩",
+        "tags": [
+            "生活"
+        ],
+        "categories": [
+            "旅行"
+        ],
+        "toc": true,
+        "resources": [
+            {
+                "name": "featured-image",
+                "src": "IMG_2660.jpg"
+            },
+            {
+                "name": "featuredImagePreview",
+                "src": "IMG_2660.jpg"
+            }
+        ]
+    },
+    {
+        "title": "树莓派-无显示器安装系统",
+        "uri": "posts/2020-11-19-Raspberry-Pi-Install",
+        "content": "sectnums   icons  font                                                                                                              https   balena io etcher balenaEtcher                image  etcher png title  balenaEtcher                                                              https   www raspberrypi org software operating systems      image  pi_os png title                                                 sd             etcher        Flash file                zip           etcher          sd     flash                    sd  WARNING        windows      sd                                 image  ignore_format png title                    sd                        boot          image  boot png title                      2  SSH                             SSH       boot             SSH       image  add ssh png title    SSH   NOTE                   windows                   IP                        IP      boot     cmdline txt    image  add ip png title      IP   NOTE                                    TIP           wpa_supplicant conf                                                                    xshell                    pi     raspberry image  start png title  xshell",
+        "objectID": "posts/2020-11-19-Raspberry-Pi-Install",
+        "excerpt": "又把树莓派内装的系统玩儿坏了，这次记录一下重装系统的方法",
+        "authors": [
+            "王菁浩"
+        ],
+        "tags": [
+            "树莓派"
+        ],
+        "categories": [
+            "技术"
+        ],
+        "date": "2020-11-19T13:19:21.000Z",
+        "toc": true
+    },
+    {
+        "title": "java8升级到java11的模块系统",
+        "uri": "posts/2020-11-22-java-update-to-11",
+        "content": "sectnums   icons  font                java9     https   www runoob com java java9 module system html java module  https   openjdk java net projects jigsaw  Jigsaw                                  jlink   java          TIP  Java11                           java8   gradle     Springboot          jar                              java      module info java                                  module path       task           module path                module path             compileJava     module path                                     jar            jar                                                                             kerberos    hive            hadoop  hadoop                         jackson                         kerberos        hdfs              webhdfs  hdfs     rest         jar       hdfs       hive driver                                                                   NOTE               module jar        package    package          class                   jar        eg    a jar     package c d e        f class   b jar      package c d e        g class              a jar   b jar                    a jar   b jar      jar                                                                                                                                             module info java                         package                                                                              TIP                                                        Builder              Builder     gradle     nexus    maven publish         jar                   jar             classifier   artifact      jar      nexus          compile  group name version classifier                          classifier   jlink                            org beryx jlink            module                   jar                 jdk            springboot                                       jlink                                  docker                      jlink   jdk         alpine               java              alpine         alkoclick alpine jdk11 nojdk latest                                  docker       60",
+        "objectID": "posts/2020-11-22-java-update-to-11",
+        "excerpt": "最近用了一周的时间对原有的系统工程进行了升级，从java8升级到了java11，本文主要记录升级目的、升级过程中模块系统的加入、混淆（proguard）、jlink打包java环境、docker打包等的注意事项",
+        "author": "王菁浩",
+        "tags": [
+            "java",
+            "docker",
+            "jlink",
+            "proguard"
+        ],
+        "categories": [
+            "技术"
+        ],
+        "date": "2020-11-22T02:32:21.000Z",
+        "toc": true
+    },
+    {
+        "title": "kudu + impala 测试环境搭建及测试",
+        "uri": "posts/2020-12-04-kodo-dev",
+        "content": "sectnums   icons  font    kudu               https   kudu apache org docs quickstart html quickstart          docker    docker             https   wjhdec github io 2019 08 21 2019 08 10 docker machine on windows     docker machine   docker        win10     hyper v     https   docs docker com machine drivers hyper v  docker                   source  bash  docker machine create  d hyperv   hyperv cpu count 4   hyperv memory 8192   hyperv virtual switch  P Default Switch  docker default TIP         4 8G         docker machine create  d hyperv   help          virtualbox    hyperv    NOTE     create     git     bash     bash              windows    powershell       Waiting SSH available                KUDUQUICKSTARTIP           export KUDUQUICKSTARTIP   ifconfig   grep  inet     grep  Fv 127 0 0 1   awk   print  2     tail  1             Windows                                    key  KUDUQUICKSTARTIP   docker   IP eg  192 168 1 123    docker compose  f quickstart yml  d  NOTE           quickstart yml                             clone      docker compose TIP              d              impala  source  bash  docker run  d   name kudu impala   network  docker_default     p 21000 21000  p 21050 21050  p 25000 25000  p 25010 25010  p 25020 25020     memory 4096m apache kudu impala latest impala   docker    25000                cloudera   impala jdbc                  dbeaver    jdbc    driver  image  dbeaver conn png title    jdbc   image  dbeaver success png title                                10w       image  createdatasql png title        image  import_data png title                                  128514  image  running png title        image  finished png title                     kudu impala docker                          docker         kudu       Linux Mac    Windows         docker                           kudu                            docker",
+        "objectID": "posts/2020-12-04-kodo-dev",
+        "excerpt": "最近学习 kudu，准备搭建一个环境进行功能的测试",
+        "authors": [
+            "王菁浩"
+        ],
+        "tags": [
+            "kudu",
+            "impala"
+        ],
+        "categories": [
+            "技术"
+        ],
+        "date": "2020-12-04T13:15:21.000Z",
+        "toc": true
+    },
+    {
+        "title": "windows下编译GDAL记录",
+        "uri": "posts/2020-12-31-gdal-windows-build",
+        "content": "sectnums   icons  font  abstract                        java   gdal                java                 Linxu                  make                    Windows                     NOTE       java          Conda           Visual Studio 2017 sqlite3 3 34 0 proj 6 3 2 gdal 3 1 4      sqlite    proj    gdal    Visual Studio 2017       Visual Studio 2017   Community                    c                                     sqlite3                        dll                     exe  32   proj    exe                      https   github com sqlite sqlite tree version 3 34 0          Tcl https   www activestate com products tcl downloads  ActiveTcl                     https   www2 sqlite org src tree ci 14864f2b8470fe98          vs          nmake  f Makefile msc TOP    sqlite  exe               proj gdal                 proj        https   cmake org  Cmake          cmake  ui       config          EXE_SQLITE3   D  Codes sqlite sqlite3 exe SQLITE3INCLUDEDIR   D  Codes sqlite SQLITE3_LIBRARY   D  Codes sqlite sqlite3 lib        CMAKEINSTALLPREFIX   D  Work proj          Generate    Open Project   vs   vs                       ALLBUILD   INSTALL   Release x64                 CMAKEINSTALL_PREFIX               proj        GDAL                         https   proj org download html   gdal    gdal    nmake     sqlite proj                                    https   ant apache org  ANT  https   sourceforge net projects swig  SWIG  JAVA       gdal     nmake opt                         source  shell  nmake  f makefile vc MSVCVER 1910 WIN64 1 GDALHOME D  Work gdal3 1 4 PROJINCLUDE  ID  Work proj6 3 2 include PROJLIBRARY D  Work proj6 3 2 lib proj lib SQLITEINC  ID  Work sqlite SQLITE_LIB D  Work sqlite sqlite3 lib BINDINGS java install NOTE       install            GRADLE_HOME                     GRADLE_HOME                           jni    dll",
+        "objectID": "posts/2020-12-31-gdal-windows-build",
+        "excerpt": "windows 中编译 GDAL",
+        "authors": [
+            "王菁浩"
+        ],
+        "tags": [
+            "gdal",
+            "windows"
+        ],
+        "categories": [
+            "技术"
+        ],
+        "date": "2020-12-31T22:05:21.000Z",
+        "toc": true
+    },
+    {
+        "title": "Restful 风格接口设计总结",
+        "uri": "posts/2021-01-13-restful-design",
+        "content": "1              Restful                 Restful                                                 128579                                                                   id   name                     1          2               id   class_id   name   age                                       1   1       10     2   1       11     3   2       10     4   2       11   2  Restful            2 1             Restful                                                    2                            2 2  url                url          add list delete start stop                 Restful                       Restful                                                           delXXX   deleteXXX                                       3  Restful                 Restful                                POST              Restful                     insert PUT           Restful                       update DELETE            PATCH                                     put        Restful                                  NOTE        start stop      Restful               PUT                put   status    start   4  Restful      4 1                                                    url                          classes     students                            school bags 4 2                                   4 2 1                                                      base_url  classes name    4 2 2            ID            ID    url         baseurl  classes  classid  4 2 3                   POST            json     POST  base_url  classes content   class json 4 2 4                DELETE  baseurl  classes  classid  4 2 5       PUT   PATCH  baseurl  classes  classid     POST   4 2 6                                                  url                                                                             POST    base_url  resources               base_url  resources               baseurl  resources  resourceid           DELETE    baseurl  resources  resourceid           PUT   PATCH    baseurl  resources  resourceid    4 3                                                                         baseurl  classes  classid  students    students                 TIP                           4 4                         token                   header      header     Authorization     Authorization  Basic 1234567    4 5         Restful     http                  header                        HTTP                       https   developer mozilla org zh CN docs Web HTTP Status status code  4 6       4 6 1                                                  http status code                                                                 4 6 2                                    url     resources pageSize 10 pageNum 10                              4 6 3  POST PUT PATCH                               4 6 4  DELETE               200              ID  4 7                                      http status code                    4 7 1           get      id         404                          204                  ID                        4xx 5     Restful                                       Restful            url                                                        Restful                                   6     restfulapi net                 eg   users          eg   users 123                                                               POST   201              200   200 OK  404 Not Found      PUT   405        200 OK  404 Not Found      PATCH   405        200 OK  404 Not Found           405        200 OK  404 Not Found",
+        "objectID": "posts/2021-01-13-restful-design",
+        "excerpt": "简单总结一下 Restful 风格接口设计思路",
+        "author": "王菁浩",
+        "tags": [
+            "rest"
+        ],
+        "categories": [
+            "技术"
+        ],
+        "date": "2021-01-13T19:15:21.000Z",
+        "toc": true
+    },
+    {
+        "title": "投影分类",
+        "uri": "posts/2021-02-13-projection",
+        "content": "startmindmap projection                    lightblue          lightblue                  lightblue           lightblue                            lightblue                      lightblue                      lightblue                              lightblue            lightblue            lightblue            lightblue                    lightblue         lightblue       endmindmap                                                                                                                                                                                                                                                          3   6   Web",
+        "objectID": "posts/2021-02-13-projection",
+        "subtitle": "复习一下大学里的投影知识",
+        "summary": "",
+        "date": "2021-02-13T02:26:45.000Z",
+        "author": "王菁浩",
+        "tags": [
+            "projection"
+        ],
+        "categories": [
+            "技术"
+        ]
+    },
+    {
+        "title": "吐槽一下最近开发 c++ 的经历",
+        "uri": "posts/2021-04-10-about-cpp",
+        "content": "nightly build                 1                 Linux                   Windows              Windows            2       2 1  Qt Qt           qt          stl                                  2 1 1   1  Model View Delegate          Java  net      MVC   MVVM                                     qml               qml               view                             view            delegate                                      model   model     why    view                                    ROLE        role                 Qt             Role   read edit                     role         qt       Role    EditRole                                                 flag             Model                                            2 1 2   2  QML QML                        QML      qml                                                                                    IDE                                       Qml                                                                                                                 Qml                           2 1 3        Qt           qt License                                 qml        Windows                                                  2 2  Vcpkg                                              GDAL                 sqlite   proj  vcpkg                         Vcpkg     qt qmake     Cmake VC   2 2 1                                                          vcpkg     G            vcpkg                    GDAL         2 3  wxWidgets              Qt            MFC                         Qt                      3       Windows            Linux          Windows",
+        "objectID": "posts/2021-04-10-about-cpp",
+        "summary": "",
+        "date": "2021-04-10T00:12:45.000Z",
+        "author": "王菁浩",
+        "tags": [
+            "projection"
+        ],
+        "categories": [
+            "技术"
+        ]
+    },
+    {
+        "title": "在 golang 中使用 GDAL（Windows环境）",
+        "uri": "posts/2021-06-02-gdal-in-golang",
+        "content": "windows  go       GDAL                Windows             1              C         GDAL         Windows     Kerberos                    golang   Kerberos               Golang     GDAL       lukeroth gdal                    issue   Windows                                Ubuntu                        cwindowsamd64 go            Windows               2     2 1 mingw64                         cgo    gcc            MSYS2    msys2            GDAL  pacman  S mingw w64 x86_64 gdal 2 2                      go package main import    github com lukeroth gdal   log    func main     ds    gdal OpenDataSource  E   Data  shjq  sh_wgs84 shp   0  defer ds Destroy   layer    ds LayerByIndex 0  for  feature    layer NextFeature    feature    nil  defer feature Destroy   geom    feature Geometry   wkt  err    geom ToWKT   err    nil   log Fatalf  to wkt error   s   err    log Println wkt   else   break         2 3             go build        gdali           cwindows_amd64 go                             C  Users  USERNAME  go pkg mod github com lukeroth gdal v0 0 0 xxxx     cwindows_amd64 go  6 7   mingw64                                    lgdali         go     cgo windows LDFLAGS   LD  msys64 mingw64 lib  lgdal  cgo windows CFLAGS   ID  msys64 mingw64 include            go build      3                             GDAL2      GDAL 3                                         GDAL 2     GDAL3  Dataset                 DataSource           msys2  GDAL         dll                                       lib   include",
+        "objectID": "posts/2021-06-02-gdal-in-golang",
+        "date": "2021-06-02T13:15:45.000Z",
+        "author": "王菁浩",
+        "tags": [
+            "golang",
+            "gdal"
+        ],
+        "categories": [
+            "技术"
+        ]
+    },
+    {
+        "title": "恭王府-补钙要适量",
+        "uri": "posts/2021-06-05-tourism-bj-gongwangfu",
+        "content": "5                                  1                              2          30       2 1                                                                   2 2                                                   2 3                                2 4",
+        "objectID": "posts/2021-06-05-tourism-bj-gongwangfu",
+        "author": "王菁浩",
+        "date": "2021-06-05T14:39:43.000Z",
+        "tags": [
+            "生活"
+        ],
+        "categories": [
+            "旅行"
+        ],
+        "toc": true,
+        "resources": [
+            {
+                "name": "featured-image",
+                "src": "IMG_4155.jpg"
+            },
+            {
+                "name": "featuredImagePreview",
+                "src": "IMG_4155.jpg"
+            }
+        ]
+    },
+    {
+        "title": "golang + docker 写服务的部分感受",
+        "uri": "posts/2022_03_23_java_to_go",
+        "content": "go           c              docker k8s             java                 go         go                   java                  Java                      java   image         jvm jar jdk  tomcat  jetty       jar               200 300M                   400M       java11                                springboot                    golang                   3                 5 6M                                                                                                       golang                   golang                                                                      linux        windows                                k8s  docker          github               go                                                                           err                               golang                     github                                           golang standards project layout                                           java     service controller                                       golang                                                                                             Error                 golang    error                                                       error                          juju errors         err     Rest      golang                            gin   echo         golang                         echo   gin           err                  echo",
+        "objectID": "posts/2022_03_23_java_to_go",
+        "date": "2022-03-23T11:54:01.000Z",
+        "tags": [
+            "golang"
+        ],
+        "categories": [
+            "技术"
+        ]
+    },
+    {
+        "title": "配置",
+        "uri": "tags/configuration",
+        "content": "",
+        "objectID": "tags/configuration"
+    },
+    {
+        "title": "内容",
+        "uri": "tags/content",
+        "content": "",
+        "objectID": "tags/content"
+    },
+    {
+        "title": "安装",
+        "uri": "tags/installation",
+        "content": "",
+        "objectID": "tags/installation"
+    }
+]

@@ -2,7 +2,7 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://wjhdec.github.io/categories/</loc><lastmod>2022-03-23T19:54:01&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://wjhdec.github.io/categories/</loc><lastmod>2022-03-23T19:54:01&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://wjhdec.github.io/en/categories/"
@@ -11,10 +11,10 @@
                     hreflang="zh-cn"
                     href="https://wjhdec.github.io/categories/"
                     /></url><url>
-            <loc>https://wjhdec.github.io/tags/golang/</loc><lastmod>2022-03-23T19:54:01&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://wjhdec.github.io/2022/03/2022_03_23_java_to_go/</loc><lastmod>2022-03-23T19:54:01&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://wjhdec.github.io/posts/</loc><lastmod>2022-03-23T19:54:01&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://wjhdec.github.io/tags/</loc><lastmod>2022-03-23T19:54:01&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://wjhdec.github.io/tags/golang/</loc><lastmod>2022-03-23T19:54:01&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://wjhdec.github.io/2022/03/2022_03_23_java_to_go/</loc><lastmod>2022-03-23T19:54:01&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://wjhdec.github.io/posts/</loc><lastmod>2022-03-23T19:54:01&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://wjhdec.github.io/tags/</loc><lastmod>2022-03-23T19:54:01&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://wjhdec.github.io/en/tags/"
@@ -23,7 +23,7 @@
                     hreflang="zh-cn"
                     href="https://wjhdec.github.io/tags/"
                     /></url><url>
-            <loc>https://wjhdec.github.io/</loc><lastmod>2022-03-23T19:54:01&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://wjhdec.github.io/</loc><lastmod>2022-03-23T19:54:01&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://wjhdec.github.io/en/"
@@ -32,7 +32,7 @@
                     hreflang="zh-cn"
                     href="https://wjhdec.github.io/"
                     /></url><url>
-            <loc>https://wjhdec.github.io/categories/%E6%8A%80%E6%9C%AF/</loc><lastmod>2022-03-23T19:54:01&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://wjhdec.github.io/categories/%E6%8A%80%E6%9C%AF/</loc><lastmod>2022-03-23T19:54:01&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://wjhdec.github.io/2021/06/2021-06-05-tourism-bj-gongwangfu/</loc><lastmod>2022-01-23T17:09:13&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://wjhdec.github.io/categories/%E6%97%85%E8%A1%8C/</loc><lastmod>2022-01-23T17:09:13&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://wjhdec.github.io/tags/%E7%94%9F%E6%B4%BB/</loc><lastmod>2022-01-23T17:09:13&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
