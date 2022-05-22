@@ -34,7 +34,7 @@
                             "url": "https:\/\/wjhdec.github.io\/images\/Apple-Devices-Preview.png",
                             "width":  3200 ,
                             "height":  2048 
-                        }],"genre": "posts","keywords": "rest","wordcount":  2043 ,
+                        }],"genre": "posts","keywords": "rest","wordcount":  2014 ,
         "url": "https:\/\/wjhdec.github.io\/2021\/01\/2021-01-13-restful-design\/","datePublished": "2021-01-13T19:15:21+00:00","dateModified": "2022-01-23T17:09:13+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -116,7 +116,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Restful 风格接口设计总结</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>王菁浩</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF/"><i class="far fa-folder fa-fw"></i>技术</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-13">2021-01-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2043 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-13">2021-01-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2014 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;<span id="/2021/01/2021-01-13-restful-design/" class="leancloud_visitors" data-flag-title="Restful 风格接口设计总结">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -131,10 +131,10 @@
     <li><a href="#2-restful-风格接口核心设计思想">2. Restful 风格接口核心设计思想</a>
       <ul>
         <li><a href="#21-一切以-u资源u-为核心">2.1. 一切以 <u><strong>资源</strong></u> 为核心</a></li>
-        <li><a href="#22-url-中-u不要出现u-任何动词">2.2. url 中 <u><strong>不要出现</strong></u> 任何动词</a></li>
+        <li><a href="#22-url-中-u不要出现u-动词">2.2. URL 中 <u><strong>不要出现</strong></u> 动词</a></li>
       </ul>
     </li>
-    <li><a href="#3-restful-中的五大方法">3. Restful 中的五大方法</a></li>
+    <li><a href="#3-restful-中的常用方法">3. Restful 中的常用方法</a></li>
     <li><a href="#4-restful-设计细节">4. Restful 设计细节</a>
       <ul>
         <li><a href="#41-资源名称的设计">4.1. 资源名称的设计</a></li>
@@ -231,19 +231,26 @@
 </table>
 <h2 id="2-restful-风格接口核心设计思想">2. Restful 风格接口核心设计思想</h2>
 <h3 id="21-一切以-u资源u-为核心">2.1. 一切以 <u><strong>资源</strong></u> 为核心</h3>
-<p>Restful 风格的设计中，全部的操作都是围绕 ##资源## 进行的，这是最中心的思想。+
+<p>Restful 风格的设计中，全部的操作都是围绕  <code>资源</code>  进行的，这是最中心的思想。
 例如上面的例子中，资源有2个，班级和学生。那么接下来的设计就需要从班级和学生入手</p>
-<h3 id="22-url-中-u不要出现u-任何动词">2.2. url 中 <u><strong>不要出现</strong></u> 任何动词</h3>
-<p>设计的url中 <strong>不要出现</strong> 类似 <code>add</code>、<code>list</code>、<code>delete</code>、<code>start</code>、<code>stop</code> 等任何动词，如果以前没有设计过 Restful 风格接口的话这点会很不适应。但是我感觉这是 Restful 风格显得特别工整的关键。尤其多人的项目，质量又把控不严的情况下，各种五花八门的动词都出现了。例如在同一工程下同时用 <code>delXXX</code> 和 <code>deleteXXX</code> 表示删除。</p>
+<h3 id="22-url-中-u不要出现u-动词">2.2. URL 中 <u><strong>不要出现</strong></u> 动词</h3>
+<p>设计的 URL 中 <strong>不要出现</strong> 类似 <code>add</code>、<code>list</code>、<code>delete</code>、<code>start</code>、<code>stop</code> 等任何动词，如果以前没有设计过 Restful 风格接口的话这点会很不适应。但是我感觉这是 Restful 风格显得特别工整的关键。尤其多人的项目，质量又把控不严的情况下，各种五花八门的动词都出现了。例如在同一工程下同时用 <code>delXXX</code> 和 <code>deleteXXX</code> 表示删除。</p>
 <p>同时这种设计使接口更简短直接，能很明白的知道操作的是什么资源。</p>
-<h2 id="3-restful-中的五大方法">3. Restful 中的五大方法</h2>
-<p>GET :: 无论是不是 Restful 风格，这个应该使用最多的方法，获取数据，可能为单个资源或数组
-POST :: 也是特别常用的一个，Restful 风格中它代表的是添加，也就是数据库中的 insert
-PUT :: 更新，这个在非Restful 风格中可能用的不多，意思是更新，数据库中的 update
-DELETE :: 字面意思，删除
-PATCH* :: 这个用的稍微少一些，部分更新，我自己用的比较少，大部分接口实现 put 就够了</p>
+<h2 id="3-restful-中的常用方法">3. Restful 中的常用方法</h2>
+<p><strong>GET</strong> : 无论是不是 Restful 风格，这个应该使用最多的方法，获取数据，可能为单个资源或数组</p>
+<p><strong>POST</strong> : 也是特别常用的一个，Restful 风格中它代表的是添加，也就是数据库中的 insert</p>
+<p><strong>PUT</strong> : 更新，这个在非Restful 风格中可能用的不多，意思是更新，数据库中的 update</p>
+<p><strong>DELETE</strong> : 字面意思，删除</p>
+<p><strong>PATCH</strong>* : 这个用的稍微少一些，部分更新，我自己用的比较少，大部分接口实现 put 就够了</p>
 <p>由于 Restful 风格中不允许使用动词，这几个方法就代替了动词的作用，需要合理使用</p>
-<p>NOTE: 上面提到的 <code>start</code>、<code>stop</code> 等方法在 Restful 风格中不能直接体现，一般用 <code>PUT</code> 方法修改资源的状态代替，例如 put {&ldquo;status&rdquo;: &ldquo;start&rdquo;}</p>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw"></i>注意<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">上面提到的 <code>start</code>、<code>stop</code> 等方法在 Restful 风格中不能直接体现，一般用 <code>PUT</code> 方法修改资源的状态代替，例如 put {&ldquo;status&rdquo;: &ldquo;start&rdquo;}</div>
+        </div>
+    </div>
 <h2 id="4-restful-设计细节">4. Restful 设计细节</h2>
 <h3 id="41-资源名称的设计">4.1. 资源名称的设计</h3>
 <p>资源肯定都是名词，这都不用细说，另外还有一些官方推荐或我自己的一些建议：</p>
@@ -314,7 +321,14 @@ PATCH* :: 这个用的稍微少一些，部分更新，我自己用的比较少�
 <p>在上面的例子中，班级和学生是一对多的关系，可以认为有层级关系，如果想查询某个班里学生的情况，可以在班级后接学生的资源，例如：</p>
 <p><code>GET</code> {base_url}/classes/{class_id}/students</p>
 <p>同时 students 资源也适用于上面的资源操作模板</p>
-<p>TIP: 这里为了说明分层的设计，认为学生只依赖与班级存在</p>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw"></i>tip<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">这里为了说明分层的设计，认为学生只依赖与班级存在</div>
+        </div>
+    </div>
 <h3 id="44-验证设计">4.4. 验证设计</h3>
 <p>有时接口中会出现验证的需求，例如传 token等</p>
 <p>这里我一般是把验证信息放在请求的 header 里面，在 header 中添加</p>
@@ -326,20 +340,20 @@ PATCH* :: 这个用的稍微少一些，部分更新，我自己用的比较少�
 <pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">Authorization: <span class="p">&lt;</span><span class="nt">type</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">credentials</span><span class="p">&gt;</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>例如 <code>Authorization: Basic 1234567...</code></p>
+</div><p>例如 <code>Authorization: Basic YWRtaW46YWRtaW4=</code></p>
 <h3 id="45-状态设计">4.5. 状态设计</h3>
 <p>在 Restful 风格中，http的状态编码特别重要，这些状态码存在 header 中，可在数据处理前先验证状态，
-这里我一般使用HTTP的默认状态码，我感觉一般情况下足够用了，详见 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status[status" target="_blank" rel="noopener noreffer">https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status[status</a> code]</p>
+这里我一般使用HTTP的默认状态码，我感觉一般情况下足够用了，详见 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status" target="_blank" rel="noopener noreffer">status code</a></p>
 <h3 id="46-返回设计">4.6. 返回设计</h3>
 <h4 id="461-get-单个资源返回">4.6.1. GET 单个资源返回</h4>
 <p>我的建议是不要在外面套任何东西，请求什么资源就返回什么资源。
 如果请求错误的话有 http status code 的错误代码，内容中可以加上错误信息。正确的话返回一个表示正确的代码有啥用？？在外面套一层没啥用的东西在我看来就是浪费解析资源。</p>
 <h4 id="462-get-列表">4.6.2. GET 列表</h4>
-<p>这里我的习惯是列表全部分页处理，分页参数可以依据需求设计，放在url中，例如 <code>resources?pageSize=10;pageNum=10</code>。返回中包括分页的信息及数组，这里数组外面会包一层分页信息</p>
+<p>这里我的习惯是列表全部分页处理，分页参数可以依据需求设计，放在 URL 中，例如 <code>resources?pageSize=10&amp;pageNum=10</code>。返回中包括分页的信息及数组，这里数组外面会包一层分页信息</p>
 <h4 id="463-postputpatch-返回">4.6.3. POST/PUT/PATCH 返回</h4>
 <p>我的建议是返回插入/修改后的资源，结构同单个资源返回</p>
 <h4 id="464-delete-返回">4.6.4. DELETE 返回</h4>
-<p>这里可以什么都不返回，200就足够了&hellip;或者返回删除的ID等</p>
+<p>这里可以什么都不返回，使用204。或返回内容，使用200。</p>
 <h3 id="47-返回错误设计">4.7. 返回错误设计</h3>
 <p>接口中肯定要处理错误请求等，这时一定要返回的是上面提到的 http status code，错误内容可选返回或不返回，看需求处理</p>
 <h4 id="471-另外一些错误情况">4.7.1. 另外一些错误情况</h4>
@@ -370,32 +384,27 @@ PATCH* :: 这个用的稍微少一些，部分更新，我自己用的比较少�
 <tr>
 <td>POST</td>
 <td>201</td>
-<td>禁止使用</td>
+<td>405(Method Not Allowed)</td>
 </tr>
 <tr>
 <td>GET</td>
-<td>200</td>
+<td>200(OK)</td>
 <td>200(OK)/404(Not Found)</td>
 </tr>
 <tr>
 <td>PUT</td>
-<td>405(不支持)</td>
+<td>405(Method Not Allowed)</td>
 <td>200(OK)/404(Not Found)</td>
 </tr>
 <tr>
 <td>PATCH</td>
-<td>405(不支持)</td>
+<td>405(Method Not Allowed)</td>
 <td>200(OK)/404(Not Found)</td>
 </tr>
 <tr>
-<td>更新</td>
-<td>405(不支持)</td>
-<td>200(OK)/404(Not Found)</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
+<td>DELETE</td>
+<td>405(Method Not Allowed)</td>
+<td>200(OK)/204(No Content)/404(Not Found)</td>
 </tr>
 </tbody>
 </table>

@@ -33,26 +33,32 @@
 
 ### 2.1. 一切以 <u>**资源**</u> 为核心
 
-Restful 风格的设计中，全部的操作都是围绕 ##资源## 进行的，这是最中心的思想。+
+Restful 风格的设计中，全部的操作都是围绕  `资源`  进行的，这是最中心的思想。
 例如上面的例子中，资源有2个，班级和学生。那么接下来的设计就需要从班级和学生入手
 
-### 2.2. url 中 <u>**不要出现**</u> 任何动词
+### 2.2. URL 中 <u>**不要出现**</u> 动词
 
-设计的url中 **不要出现** 类似 `add`、`list`、`delete`、`start`、`stop` 等任何动词，如果以前没有设计过 Restful 风格接口的话这点会很不适应。但是我感觉这是 Restful 风格显得特别工整的关键。尤其多人的项目，质量又把控不严的情况下，各种五花八门的动词都出现了。例如在同一工程下同时用 `delXXX` 和 `deleteXXX` 表示删除。
+设计的 URL 中 **不要出现** 类似 `add`、`list`、`delete`、`start`、`stop` 等任何动词，如果以前没有设计过 Restful 风格接口的话这点会很不适应。但是我感觉这是 Restful 风格显得特别工整的关键。尤其多人的项目，质量又把控不严的情况下，各种五花八门的动词都出现了。例如在同一工程下同时用 `delXXX` 和 `deleteXXX` 表示删除。
 
 同时这种设计使接口更简短直接，能很明白的知道操作的是什么资源。
 
-## 3. Restful 中的五大方法
+## 3. Restful 中的常用方法
 
-GET :: 无论是不是 Restful 风格，这个应该使用最多的方法，获取数据，可能为单个资源或数组
-POST :: 也是特别常用的一个，Restful 风格中它代表的是添加，也就是数据库中的 insert
-PUT :: 更新，这个在非Restful 风格中可能用的不多，意思是更新，数据库中的 update
-DELETE :: 字面意思，删除
-PATCH* :: 这个用的稍微少一些，部分更新，我自己用的比较少，大部分接口实现 put 就够了
+**GET** : 无论是不是 Restful 风格，这个应该使用最多的方法，获取数据，可能为单个资源或数组
+
+**POST** : 也是特别常用的一个，Restful 风格中它代表的是添加，也就是数据库中的 insert
+
+**PUT** : 更新，这个在非Restful 风格中可能用的不多，意思是更新，数据库中的 update
+
+**DELETE** : 字面意思，删除
+
+**PATCH*** : 这个用的稍微少一些，部分更新，我自己用的比较少，大部分接口实现 put 就够了
 
 由于 Restful 风格中不允许使用动词，这几个方法就代替了动词的作用，需要合理使用
 
-NOTE: 上面提到的 `start`、`stop` 等方法在 Restful 风格中不能直接体现，一般用 `PUT` 方法修改资源的状态代替，例如 put {"status": "start"}
+{{< admonition type=note title="注意" >}}
+上面提到的 `start`、`stop` 等方法在 Restful 风格中不能直接体现，一般用 `PUT` 方法修改资源的状态代替，例如 put {"status": "start"}
+{{< /admonition >}}
 
 ## 4. Restful 设计细节
 
@@ -124,7 +130,9 @@ content可以为class的json
 
 同时 students 资源也适用于上面的资源操作模板
 
-TIP: 这里为了说明分层的设计，认为学生只依赖与班级存在
+{{< admonition type=tip title="tip" >}}
+这里为了说明分层的设计，认为学生只依赖与班级存在
+{{< /admonition >}}
 
 ### 4.4. 验证设计
 
@@ -136,12 +144,12 @@ TIP: 这里为了说明分层的设计，认为学生只依赖与班级存在
 Authorization: <type> <credentials>
 ```
 
-例如 `Authorization: Basic 1234567...`
+例如 `Authorization: Basic YWRtaW46YWRtaW4=`
 
 ### 4.5. 状态设计
 
 在 Restful 风格中，http的状态编码特别重要，这些状态码存在 header 中，可在数据处理前先验证状态，
-这里我一般使用HTTP的默认状态码，我感觉一般情况下足够用了，详见 https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status[status code]
+这里我一般使用HTTP的默认状态码，我感觉一般情况下足够用了，详见 [status code](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status)
 
 ### 4.6. 返回设计
 
@@ -152,7 +160,7 @@ Authorization: <type> <credentials>
 
 #### 4.6.2. GET 列表
 
-这里我的习惯是列表全部分页处理，分页参数可以依据需求设计，放在url中，例如 `resources?pageSize=10;pageNum=10`。返回中包括分页的信息及数组，这里数组外面会包一层分页信息
+这里我的习惯是列表全部分页处理，分页参数可以依据需求设计，放在 URL 中，例如 `resources?pageSize=10&pageNum=10`。返回中包括分页的信息及数组，这里数组外面会包一层分页信息
 
 #### 4.6.3. POST/PUT/PATCH 返回
 
@@ -160,7 +168,7 @@ Authorization: <type> <credentials>
 
 #### 4.6.4. DELETE 返回
 
-这里可以什么都不返回，200就足够了...或者返回删除的ID等
+这里可以什么都不返回，使用204。或返回内容，使用200。
 
 
 ### 4.7. 返回错误设计
@@ -187,13 +195,12 @@ Restful 风格并不是一种强制的标准或规范，如何实现可以根据
 
 
 
-| 方法  | 集合(eg. /users) | 单个项目 (eg. /users/123) |
-| ----- | ---------------- | ------------------------- |
-| POST  | 201              | 禁止使用                  |
-| GET   | 200              | 200(OK)/404(Not Found)    |
-| PUT   | 405(不支持)      | 200(OK)/404(Not Found)    |
-| PATCH | 405(不支持)      | 200(OK)/404(Not Found)    |
-| 更新  | 405(不支持)      | 200(OK)/404(Not Found)    |
-|       |                  |                           |
+| 方法   | 集合(eg. /users)        | 单个项目 (eg. /users/123)              |
+| ------ | ----------------------- | -------------------------------------- |
+| POST   | 201                     | 405(Method Not Allowed)                |
+| GET    | 200(OK)                 | 200(OK)/404(Not Found)                 |
+| PUT    | 405(Method Not Allowed) | 200(OK)/404(Not Found)                 |
+| PATCH  | 405(Method Not Allowed) | 200(OK)/404(Not Found)                 |
+| DELETE | 405(Method Not Allowed) | 200(OK)/204(No Content)/404(Not Found) |
 
 

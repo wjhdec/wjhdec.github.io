@@ -10,3 +10,7 @@
 p {
   text-indent: 2em;
 }
+
+code {
+  text-indent: 0em;
+}
